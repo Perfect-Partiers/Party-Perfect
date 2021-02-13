@@ -5,6 +5,8 @@ import Party from "./pages/Party";
 import NoMatch from "./pages/NoMatch";
 import MyNavbar from "./components/MyNavbar";
 import PartyCreate from "./pages/PartyCreate"
+import Login from "./pages/Login";
+import CreateAccount  from "./pages/CreateAccount";
 
 function App() {
   return (
@@ -14,6 +16,12 @@ function App() {
         <Switch>
           <Route exact path={["/", "/home"]}>
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/create-account">
+            <CreateAccount />
           </Route>
           <Route exact path="/party">
             <Party />
