@@ -1,21 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Books from "./pages/Books";
-import Detail from "./pages/Detail";
+import Home from "./pages/Home";
+import Party from "./pages/Party";
 import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
+import MyNavbar from "./components/MyNavbar";
+import PartyCreate from "./pages/PartyCreate"
 
 function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <MyNavbar />
         <Switch>
-          <Route exact path={["/", "/books"]}>
-            <Books />
+          <Route exact path={["/", "/home"]}>
+            <Home />
           </Route>
-          <Route exact path="/books/:id">
-            <Detail />
+          <Route exact path="/party">
+            <Party />
+          </Route>
+          <Route exact path="/partycreate">
+            <PartyCreate />
           </Route>
           <Route>
             <NoMatch />
