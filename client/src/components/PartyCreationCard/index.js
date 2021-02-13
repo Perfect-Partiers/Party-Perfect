@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Form, Card, Col } from "react-bootstrap";
+import { Form, Card, Col, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import TimePicker from "rc-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
+  },
+  button: {
+    backgroundColor: "#99658a",
   },
 };
 
@@ -24,11 +26,14 @@ function PartyCreationCard() {
               <Form.Control type="text" placeholder="Enter party name" />
             </Form.Group>
             <Form.Group controlId="formGroupPartyDate">
-              <Form.Label>Date:  </Form.Label>
-              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+              <Form.Label>Date: </Form.Label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
             </Form.Group>
             <Form.Group controlId="formGroupPartyTime">
-              <Form.Label>Time:  </Form.Label>
+              <Form.Label>Time: </Form.Label>
               <TimePicker
                 showSecond={false}
                 className="xxx"
@@ -41,6 +46,9 @@ function PartyCreationCard() {
               <Form.Label>Address</Form.Label>
               <Form.Control type="text" placeholder="Enter address" />
             </Form.Group>
+            <Button block variant="outline-light" style={styles.button} type="submit">
+              Create Party
+            </Button>
           </Form>
         </Card.Body>
       </Card>
