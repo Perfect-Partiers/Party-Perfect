@@ -6,7 +6,32 @@ const partySchema = new Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
   address: { type: String, required: true },
-  attendees: { type: Number },
+  attendees: [
+    {
+      name: {
+        type: String,
+      },
+      email: {
+        type: String,
+      },
+    },
+  ],
+  supplies: [
+    {
+      supply: {
+        type: String,
+      },
+      checked: {
+        type: Boolean,
+      },
+    },
+  ],
+  schedule: [
+    {
+      time: { type: String },
+      activity: { type: String },
+    },
+  ],
 });
 
 const Party = mongoose.model("Party", partySchema);
