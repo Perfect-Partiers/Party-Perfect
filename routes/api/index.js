@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const partyRoutes = require("./party");
+const partyRoutes = require("./parties");
 const userRoutes = require("./users");
 
 // party routes
