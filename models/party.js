@@ -23,6 +23,7 @@ const partySchema = new Schema({
       },
       checked: {
         type: Boolean,
+        default: false,
       },
     },
   ],
