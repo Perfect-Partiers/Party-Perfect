@@ -1,47 +1,96 @@
 import React from "react";
-import { Form, Card, Col, Button } from "react-bootstrap";
+import { Form, Card, Col, Button, Row } from "react-bootstrap";
 
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
+    width: "900px",
+  },
+  labelMain: {
+    color: "#ffffff",
+    fontSize: "20px",
+  },
+  labelForm: {
+    fontSize: "18px",
   },
   button: {
     backgroundColor: "#99658A",
     borderColor: "#99658A",
   },
+  formControl: {
+    width: "80%",
+  },
 };
 
 function LoginCard() {
   return (
-    <Col className="mt-4">
-      <Card style={styles.card}>
-        <Card.Body>
-          <Form>
+    <div>
+      <Col className="mt-4 justify-content-center">
+        <Card style={styles.card}>
+          <Card.Body>
+            <Form>
+              <center>
+                <Form.Label
+                  className="font-weight-bold mb-2"
+                  style={styles.labelMain}
+                >
+                  Login
+                </Form.Label>
+              </center>
+
+              <Form.Group as={Row} controlId="formGroupEmail" className="py-2">
+                <Form.Label
+                  column
+                  sm="3"
+                  className="font-weight-bold text-right"
+                  style={styles.labelForm}
+                >
+                  Email
+                </Form.Label>
+                <Col sm="9">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your email"
+                    style={styles.formControl}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formGroupPassword"
+                className="py-2"
+              >
+                <Form.Label
+                  column
+                  sm="3"
+                  className="font-weight-bold text-right"
+                  style={styles.labelForm}
+                >
+                  Password
+                </Form.Label>
+                <Col sm="9">
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter your password"
+                    style={styles.formControl}
+                  />
+                </Col>
+              </Form.Group>
+            </Form>
             <center>
-              <Form.Label className="font-weight-bold">Login</Form.Label>
+              <Button
+                style={styles.button}
+                className="font-weight-bold"
+                variant="primary"
+                type="submit"
+              >
+                Login
+              </Button>
             </center>
-            <Form.Group controlId="formGroupEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="text" placeholder="Enter your email" />
-            </Form.Group>
-            <Form.Group controlId="formGroupPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Enter your password" />
-            </Form.Group>
-          </Form>
-          <center>
-            <Button
-              style={styles.button}
-              className="font-weight-bold"
-              variant="primary"
-              type="submit"
-            >
-              Login
-            </Button>
-          </center>
-        </Card.Body>
-      </Card>
-    </Col>
+          </Card.Body>
+        </Card>
+      </Col>
+    </div>
   );
 }
 

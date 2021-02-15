@@ -21,7 +21,7 @@ const styles = {
     borderColor: "#99658A",
   },
   formControl: {
-    width: "80%",
+    width: "90%",
   },
 };
 
@@ -50,7 +50,7 @@ function CreateAccountCard() {
                   <Form.Label
                     column
                     sm="3"
-                    className="font-weight-bold ml-auto"
+                    className="font-weight-bold text-right"
                     style={styles.labelForm}
                   >
                     First Name
@@ -72,7 +72,7 @@ function CreateAccountCard() {
                   <Form.Label
                     column
                     sm="3"
-                    className="font-weight-bold"
+                    className="font-weight-bold text-right"
                     style={styles.labelForm}
                   >
                     Last Name
@@ -94,7 +94,7 @@ function CreateAccountCard() {
                   <Form.Label
                     column
                     sm="3"
-                    className="font-weight-bold"
+                    className="font-weight-bold text-right"
                     style={styles.labelForm}
                   >
                     Email
@@ -116,7 +116,7 @@ function CreateAccountCard() {
                   <Form.Label
                     column
                     sm="3"
-                    className="font-weight-bold"
+                    className="font-weight-bold text-right"
                     style={styles.labelForm}
                   >
                     Password
@@ -138,7 +138,7 @@ function CreateAccountCard() {
                   <Form.Label
                     column
                     sm="3"
-                    className="font-weight-bold"
+                    className="font-weight-bold text-right"
                     style={styles.labelForm}
                   >
                     Confirm Password
