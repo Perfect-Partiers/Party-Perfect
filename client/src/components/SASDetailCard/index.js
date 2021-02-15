@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Table } from "react-bootstrap";
-import PastDetail from "../PastDetail"
+import { Card, Table, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 
 const styles = {
   SASDetail: {
@@ -23,8 +24,8 @@ function SASDetailCard() {
   </thead>
   <tbody>
   <tr>
-      <td>Map: props.listItemA</td>
-      <td>Map: props.listItemB</td>
+      <td>Map: props.listItemA </td>
+      <td>Map: props.listItemB <Button variant="outline-light"><FontAwesomeIcon icon={faTrashAlt} /> </Button></td>
     </tr>
   </tbody>
 </Table>
