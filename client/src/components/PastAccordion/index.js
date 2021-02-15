@@ -9,7 +9,9 @@ const styles = {
     fontSize: "20px",
   },
 
-  tableHead: {},
+  tableHead: {
+    color: "#ffffff",
+  },
 };
 
 function PastAccordion() {
