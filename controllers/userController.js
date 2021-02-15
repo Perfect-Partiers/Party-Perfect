@@ -16,6 +16,7 @@ module.exports = {
   createUser: (req, res) => {
     db.User.create(req.body)
       .then((dbModel) => res.json(dbModel))
+      // redirect to /api/users/login route to use firebase authentication?
       .catch((err) => res.status(422).json(err));
   },
   updateUser: (req, res) => {
@@ -28,5 +29,8 @@ module.exports = {
       .then((dbModel) => dbModel.remove())
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
+  },
+  loginUser: (req, res) => {
+    // add firebase authentication stuff here
   },
 };

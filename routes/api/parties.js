@@ -14,4 +14,7 @@ router
   .put(partyController.updateParty)
   .delete(partyController.removeParty);
 
+// Matches with "/api/parties/mapbox/:id"
+router.route("/mapbox/:id").get(partyController.getMapBoxData);
+
 module.exports = router;
