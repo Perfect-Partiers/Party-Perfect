@@ -25,7 +25,7 @@ function Home() {
         <h1>Welcome Perfect Partier Padridg!</h1>
       </Row>
       <Row className="justify-content-md-center">
-        <Button href="#" style={styles.button} className="mr-4">
+        <Button href="/partycreate" style={styles.button} className="mr-4">
           Create a Party
         </Button>
         <Button href="#" style={styles.button}>

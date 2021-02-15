@@ -1,12 +1,19 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
+import { Button } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
 import Navbar from "react-bootstrap/Navbar";
 import "./style.css";
 
 function MyNavbar() {
+  const { currentUser, logout } = useAuth();
+
   return (
-    <Navbar style={{ backgroundColor: "#ee6a59" }} id="navbar">
-      <Navbar.Brand className="brand-style text-light">
+    <Navbar
+      className="justify-content-center"
+      style={{ backgroundColor: "#ee6a59" }}
+      id="navbar"
+    >
+      <Navbar.Brand>
         <h1 className="logo">
           Party Perfect
           <span>
@@ -16,6 +23,7 @@ function MyNavbar() {
               src={process.env.PUBLIC_URL + "/assets/images/hat.png"}
             ></img>
           </span>
+          {currentUser && <Button onClick={logout}>Logout</Button>}
         </h1>
       </Navbar.Brand>
     </Navbar>

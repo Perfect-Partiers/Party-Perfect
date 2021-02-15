@@ -25,11 +25,10 @@ function PartyDetailCard() {
             <Card.Title style={styles.title} className="mb-2">
               Party Name
             </Card.Title>
-            <Card.Text>
-              <h3>Party Date</h3>
-              <h3>Party Time</h3>
-              <h3>Party Location</h3>
-            </Card.Text>
+            <Card.Text> Party Name</Card.Text>
+            <Card.Text> Party Time</Card.Text>
+            <Card.Text> Party Location</Card.Text>
+            <Card.Footer>Attendees: 12</Card.Footer>
             <Card.Footer style={styles.footer}>
               <span className="font-weight-bold">Attendees:</span> 12
             </Card.Footer>
