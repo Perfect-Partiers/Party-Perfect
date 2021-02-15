@@ -1,22 +1,33 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
 import { Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
+import Navbar from "react-bootstrap/Navbar";
+import "./style.css";
 
 function MyNavbar() {
-     const { currentUser, logout } = useAuth();
-     return (
-          <Navbar
-               className="justify-content-center"
-               style={{ backgroundColor: "#ee6a59" }}
-          >
-               <Container className="container text-light">
-                    <h1>Party Perfect</h1>
-                    {currentUser && <Button onClick={logout}>Logout</Button>}
-               </Container>
-          </Navbar>
-     );
+  const { currentUser, logout } = useAuth();
+
+  return (
+    <Navbar
+      className="justify-content-center"
+      style={{ backgroundColor: "#ee6a59" }}
+      id="navbar"
+    >
+      <Navbar.Brand>
+        <h1 className="logo">
+          Party Perfect
+          <span>
+            <img
+              className="brand-image"
+              alt="Party hat logo"
+              src={process.env.PUBLIC_URL + "/assets/images/hat.png"}
+            ></img>
+          </span>
+          {currentUser && <Button onClick={logout}>Logout</Button>}
+        </h1>
+      </Navbar.Brand>
+    </Navbar>
+  );
 }
 
 export default MyNavbar;

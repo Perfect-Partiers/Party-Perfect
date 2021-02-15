@@ -1,27 +1,29 @@
 import React from "react";
-import { Col, Row, Container } from "../components/Grid";
-import Jumbotron from "../components/Jumbotron";
+
+const styles = {
+  heading: {
+    textAlign: "center",
+    marginTop: "100px",
+  },
+  image: {
+    height: "500px",
+    width: "auto",
+    borderRadius: "50px",
+  },
+};
 
 function NoMatch() {
-     return (
-          <Container fluid>
-               <Row>
-                    <Col size="md-12">
-                         <Jumbotron>
-                              <h1>404 Page Not Found</h1>
-                              <h1>
-                                   <span
-                                        role="img"
-                                        aria-label="Face With Rolling Eyes Emoji"
-                                   >
-                                        🙄
-                                   </span>
-                              </h1>
-                         </Jumbotron>
-                    </Col>
-               </Row>
-          </Container>
-     );
+  return (
+    <div style={styles.heading}>
+      <h1 className="mb-5">404 Page Not Found</h1>
+      <h1>
+        <img
+          style={styles.image}
+          src={process.env.PUBLIC_URL + "/assets/images/sadparty.jpg"}
+        />
+      </h1>
+    </div>
+  );
 }
 
 export default NoMatch;
