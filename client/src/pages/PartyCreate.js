@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Row } from "react-bootstrap";
 import PartyCreationCard from "../components/PartyCreationCard";
 
-
 const styles = {
   button: {
     backgroundColor: "#99658a",

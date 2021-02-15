@@ -4,9 +4,9 @@ import Home from "./pages/Home";
 import Party from "./pages/Party";
 import NoMatch from "./pages/NoMatch";
 import MyNavbar from "./components/MyNavbar";
-import PartyCreate from "./pages/PartyCreate"
+import PartyCreate from "./pages/PartyCreate";
 import Login from "./pages/Login";
-import CreateAccount  from "./pages/CreateAccount";
+import CreateAccount from "./pages/CreateAccount";
 
 function App() {
   return (

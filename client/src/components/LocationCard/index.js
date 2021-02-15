@@ -62,16 +62,16 @@ const LocationCard = () => {
               </button>
             </Marker>
             {markerSelect ? (
-              <Popup latitude={staticMarker.latitude}
+              <Popup
+                latitude={staticMarker.latitude}
                 longitude={staticMarker.longitude}
                 onClose={() => {
-                setMarkerSelect(null)
-              } }>
+                  setMarkerSelect(null);
+                }}
+              >
                 <div>
-                  <small>
-                    {staticMarker.name}
-                  </small>
-                  <br/>
+                  <small>{staticMarker.name}</small>
+                  <br />
                   <small>{staticMarker.address}</small>
                 </div>
               </Popup>
