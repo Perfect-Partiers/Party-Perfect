@@ -46,7 +46,12 @@ function PartyCreationCard() {
               <Form.Label>Address</Form.Label>
               <Form.Control type="text" placeholder="Enter address" />
             </Form.Group>
-            <Button block variant="outline-light" style={styles.button} type="submit">
+            <Button
+              block
+              variant="outline-light"
+              style={styles.button}
+              type="submit"
+            >
               Create Party
             </Button>
           </Form>
