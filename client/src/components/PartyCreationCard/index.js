@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import TimePicker from "rc-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
@@ -24,11 +23,14 @@ function PartyCreationCard() {
               <Form.Control type="text" placeholder="Enter party name" />
             </Form.Group>
             <Form.Group controlId="formGroupPartyDate">
-              <Form.Label>Date:  </Form.Label>
-              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+              <Form.Label>Date: </Form.Label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
             </Form.Group>
             <Form.Group controlId="formGroupPartyTime">
-              <Form.Label>Time:  </Form.Label>
+              <Form.Label>Time: </Form.Label>
               <TimePicker
                 showSecond={false}
                 className="xxx"
