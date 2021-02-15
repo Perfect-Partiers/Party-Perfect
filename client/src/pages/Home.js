@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Button, Row } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
-import "./style.css";
 
 const styles = {
   button: {
