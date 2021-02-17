@@ -14,7 +14,7 @@ function MyNavbar() {
       id="navbar"
     >
       <Navbar.Brand>
-        <h1 className="logo">
+        <h1 className="logo text-white">
           Party Perfect
           <span>
             <img

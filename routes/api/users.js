@@ -6,15 +6,12 @@ router.route("/").get(userController.findAllUsers);
 
 // matches with "/api/users/:id"
 router
-  .route("/:id")
+  .route("/:id") // :id is the firebase uid from the front end (currentUser.uid)
   .get(userController.findUserById)
   .put(userController.updateUser)
   .delete(userController.removeUser);
 
 // matches with "/api/users/signup"
 router.router("/signup").post(userController.createUser);
-
-// matches with "/api/users/login"
-router.route("/login").post(userController.loginUser);
 
 module.exports = router;
