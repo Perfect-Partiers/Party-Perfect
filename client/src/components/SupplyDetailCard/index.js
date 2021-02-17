@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -9,16 +8,16 @@ const styles = {
   },
 };
 
-function SASDetailCard(props) {
+function SupplyDetailCard(props) {
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>{props.cardTitle}</Card.Title>
+        <Card.Title>Supplies</Card.Title>
         <Table responsive>
           <thead>
             <tr>
-              <th>{props.tableTitleOne}</th>
-              <th>{props.tableTitleTwo}</th>
+              <th>Completed</th>
+              <th>Supply</th>
             </tr>
           </thead>
           <tbody>
@@ -38,4 +37,4 @@ function SASDetailCard(props) {
   );
 }
 
-export default SASDetailCard;
+export default SupplyDetailCard;
