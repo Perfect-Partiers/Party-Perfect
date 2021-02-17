@@ -14,7 +14,7 @@ import ForgotPassword from "../src/pages/ForgotPassword";
 
 function App() {
      const { currentUser } = useAuth();
-     console.log(currentUser);
+    //  console.log(currentUser);
      return (
           <Router>
                <MyNavbar />

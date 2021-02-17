@@ -23,13 +23,18 @@ function PartyCreationCard() {
           <Form>
             <Form.Group controlId="formGroupPartyName">
               <Form.Label>Party Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter party name" />
+              <Form.Control
+                name="name"
+                type="text"
+                placeholder="Enter party name"
+              />
             </Form.Group>
             <Form.Group controlId="formGroupPartyDate">
               <Form.Label>Date: </Form.Label>
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                name="date"
               />
             </Form.Group>
             <Form.Group controlId="formGroupPartyTime">
@@ -40,11 +45,24 @@ function PartyCreationCard() {
                 // onChange={onChange}
                 use12Hours
                 inputReadOnly
+                name="time"
               />
             </Form.Group>
             <Form.Group controlId="formGroupPartyName">
-              <Form.Label>Address</Form.Label>
-              <Form.Control type="text" placeholder="Enter address" />
+              <Form.Label>Street Address</Form.Label>
+              <Form.Control
+                name="address"
+                type="text"
+                placeholder="Enter street address"
+              />
+            </Form.Group>
+            <Form.Group controlId="formGroupPartyName">
+              <Form.Label>Zip Code</Form.Label>
+              <Form.Control
+                name="zipCode"
+                type="text"
+                placeholder="Enter street address"
+              />
             </Form.Group>
             <Button
               block
