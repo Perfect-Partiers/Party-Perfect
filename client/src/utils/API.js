@@ -5,12 +5,15 @@ export default {
     getParties: function () {
         return axios.get("/api/parties");
     },
-    createParty: function () {
-        return axios.post("/api/parties/5C9Z1q5LFlR8ehaw5Obf2LQx7f72")
+    createParty: function (id) {
+        return axios.post("/api/parties/" + id)
     },
-    // getParty: function () {
-    //     return axios.get("/api/parties/" + id);
-    // },
+    getParty: function (id) {
+        return axios.get("/api/parties/" + id);
+    },
+    getPartyMap: function (id) {
+        return axios.get("/api/parties/mapbox/" + id)
+    }
     // updateParty: function () {
     //     return axios.put("/api/parties/" + id);
     // },
@@ -18,3 +21,4 @@ export default {
     //     return axios.delete("/api/parties/" + id);
     // },
 }
+
