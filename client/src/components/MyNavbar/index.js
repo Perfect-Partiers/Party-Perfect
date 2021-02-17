@@ -13,7 +13,7 @@ function MyNavbar() {
       style={{ backgroundColor: "#ee6a59" }}
       id="navbar"
     >
-      <Navbar.Brand>
+      <Navbar.Brand className="justify-content-center">
         <h1 className="logo text-white">
           Party Perfect
           <span>
@@ -23,9 +23,15 @@ function MyNavbar() {
               src={process.env.PUBLIC_URL + "/assets/images/hat.png"}
             ></img>
           </span>
-          {currentUser && <Button onClick={logout}>Logout</Button>}
         </h1>
       </Navbar.Brand>
+      <div className="logout">
+        {currentUser && (
+          <Button className="button font-weight-bold" onClick={logout}>
+            Logout
+          </Button>
+        )}
+      </div>
     </Navbar>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Button, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Button, Row, Modal, Form } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 
@@ -19,6 +20,11 @@ const styles = {
 };
 
 function Home() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <Container>
       <Row className="mt-5 mb-3 justify-content-md-center">
@@ -28,9 +34,29 @@ function Home() {
         <Button href="/partycreate" style={styles.button} className="mr-4">
           Create a Party
         </Button>
-        <Button href="#" style={styles.button}>
+        <Button href="#" style={styles.button} onClick={handleShow}>
           Join a Party
         </Button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          animation={false}
+          className="text-center"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Join a Party</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Enter the party ID below.</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Row>
       <Row style={styles.heading}>
         <h2>Upcoming</h2>
