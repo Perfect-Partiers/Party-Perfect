@@ -194,21 +194,22 @@ function CreateAccountCard() {
                     />
                   </Col>
                 </Form.Group>
-              </Form>
-            </center>
 
-            <center className="my-3">
-              <Button
-                style={styles.button}
-                className="font-weight-bold"
-                variant="primary"
-                type="submit"
-              >
-                Create Account
-              </Button>
+                <center className="my-3">
+                  <Button
+                    style={styles.button}
+                    className="font-weight-bold"
+                    variant="primary"
+                    type="submit"
+                  >
+                    Create Account
+                  </Button>
+                </center>
+              </Form>
             </center>
           </Card.Body>
         </Card>
+
         <div className="w-100 text-center mt-3">
           <span>Already have an account? You can login </span>
           <Link style={styles.link} to="/login">

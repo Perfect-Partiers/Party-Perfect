@@ -111,19 +111,18 @@ function LoginCard() {
                   />
                 </Col>
               </Form.Group>
+
+              <center>
+                <Button
+                  style={styles.button}
+                  className="font-weight-bold"
+                  variant="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </center>
             </Form>
-
-            <center>
-              <Button
-                style={styles.button}
-                className="font-weight-bold"
-                variant="primary"
-                type="submit"
-              >
-                Login
-              </Button>
-            </center>
-
             <div className="w-100 text-center mt-3">
               <Link style={styles.link} to="/forgot-password">
                 Forgot Password?
