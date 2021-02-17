@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Button, Row, Modal, Form } from "react-bootstrap";
-=======
-import React, {useState, useEffect} from "react";
-import { Container, Button, Row } from "react-bootstrap";
->>>>>>> 1ee1c2aadb660edb77fecfcb4f67a375881ee82b
+("react-bootstrap");
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
@@ -25,7 +21,6 @@ const styles = {
   },
 };
 
-
 function Home() {
   const [show, setShow] = useState(false);
 
@@ -38,13 +33,15 @@ function Home() {
   }, []);
 
   const loadParties = () => {
-    API.getParties().then(res => {
-      console.log("hello")
-      setParties(res);    
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+    API.getParties()
+      .then((res) => {
+        console.log("hello");
+        setParties(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
