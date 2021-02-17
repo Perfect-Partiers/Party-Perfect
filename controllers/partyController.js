@@ -7,7 +7,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 // Defining methods for the partyController
 module.exports = {
   findAllParties: (req, res) => {
-    db.User.findById(req.user.id)
+    db.User.findOne({ uid: "req.params.id" })
       .populate("parties")
       .sort({ date: -1 })
       .then((dbModel) => res.json(dbModel))
@@ -22,7 +22,7 @@ module.exports = {
     db.Party.create(req.body)
       .then(({ _id }) =>
         db.User.findOneAndUpdate(
-          { _id: req.user.id }, // Joel - used req.user.id for now. not sure how we're getting the user's id when they're logged in yet.
+          { uid: req.params.id },
           {
             $push: {
               parties: _id,
