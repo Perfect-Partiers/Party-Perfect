@@ -45,6 +45,10 @@ const partySchema = new Schema({
       },
     },
   ],
+  creater: {
+    type: String,
+    required: true,
+  },
   schedule: [
     {
       time: { type: String },
