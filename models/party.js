@@ -45,7 +45,7 @@ const partySchema = new Schema({
       },
     },
   ],
-  creater: {
+  creator: {
     type: String,
     required: true,
   },
