@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form, Card, Col, Button, Alert } from "react-bootstrap";
+import { Form, Card, Col, Button, Alert, Row } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 
 import { Link, useHistory } from "react-router-dom";
@@ -7,10 +7,24 @@ import { Link, useHistory } from "react-router-dom";
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
+    width: "900px",
+  },
+  labelMain: {
+    color: "#ffffff",
+    fontSize: "20px",
+  },
+  labelForm: {
+    fontSize: "18px",
   },
   button: {
     backgroundColor: "#99658A",
     borderColor: "#99658A",
+  },
+  formControl: {
+    width: "80%",
+  },
+  link: {
+    color: "#007BFE",
   },
 };
 
@@ -39,52 +53,85 @@ function LoginCard() {
   useEffect(() => {
     if (currentUser) history.push("/");
   }, [currentUser]);
+
   return (
-    <Col className="mt-4">
-      <Card style={styles.card}>
-        <Card.Body>
-          <Form onSubmit={handleSubmit}>
-            <center>
-              <Form.Label className="font-weight-bold">Login</Form.Label>
-            </center>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form.Group controlId="formGroupEmail" id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email"
-                ref={emailRef}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formGroupPassword" id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your password"
-                ref={passwordRef}
-                required
-              />
-            </Form.Group>
-
-            <center>
-              <Button
-                style={styles.button}
-                className="font-weight-bold"
-                variant="primary"
-                type="submit"
+    <div>
+      <Col className="mt-4 justify-content-center">
+        <Card style={styles.card}>
+          <Card.Body>
+            <Form onSubmit={handleSubmit}>
+              <center>
+                <Form.Label
+                  className="font-weight-bold mb-2"
+                  style={styles.labelMain}
+                >
+                  Login
+                </Form.Label>
+              </center>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form.Group as={Row} controlId="formGroupEmail" className="py-2">
+                <Form.Label
+                  column
+                  sm="3"
+                  className="font-weight-bold text-right"
+                  style={styles.labelForm}
+                >
+                  Email
+                </Form.Label>
+                <Col sm="9">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your email"
+                    style={styles.formControl}
+                    ref={emailRef}
+                    required
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formGroupPassword"
+                className="py-2"
               >
-                Login
-              </Button>
-            </center>
-          </Form>
+                <Form.Label
+                  column
+                  sm="3"
+                  className="font-weight-bold text-right"
+                  style={styles.labelForm}
+                >
+                  Password
+                </Form.Label>
+                <Col sm="9">
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter your password"
+                    style={styles.formControl}
+                    ref={passwordRef}
+                    required
+                  />
+                </Col>
+              </Form.Group>
 
-          <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-        </Card.Body>
-      </Card>
-    </Col>
+              <center>
+                <Button
+                  style={styles.button}
+                  className="font-weight-bold"
+                  variant="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </center>
+            </Form>
+            <div className="w-100 text-center mt-3">
+              <Link style={styles.link} to="/forgot-password">
+                Forgot Password?
+              </Link>
+            </div>
+          </Card.Body>
+        </Card>
+      </Col>
+    </div>
   );
 }
 

@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import LoginCard from "../components/LoginCard";
 
+const styles = {
+  link: {
+    color: "#007BFE",
+  },
+};
+
 function Login() {
   return (
     <Container>
@@ -15,7 +21,10 @@ function Login() {
       <Row className="justify-content-md-center mt-4">
         <h5>
           Haven't created an account yet? Create one{" "}
-          <Link to="/create-account">here</Link>!
+          <Link style={styles.link} to="/create-account">
+            here
+          </Link>
+          !
         </h5>
       </Row>
     </Container>

@@ -107,3 +107,4 @@ dist
 # Other
 .DS_Store
 
+/ignore
