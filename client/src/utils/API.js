@@ -6,7 +6,7 @@ export default {
         return axios.get("/api/parties");
     },
     createParty: function () {
-        return axios.post("/api/parties")
+        return axios.post("/api/parties/5C9Z1q5LFlR8ehaw5Obf2LQx7f72")
     },
     // getParty: function () {
     //     return axios.get("/api/parties/" + id);
