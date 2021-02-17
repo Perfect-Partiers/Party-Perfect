@@ -1,7 +1,5 @@
-import React from "react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Button, Row, Modal, Form } from "react-bootstrap";
-("react-bootstrap");
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
@@ -19,13 +17,41 @@ const styles = {
   heading: {
     marginTop: "40px",
   },
+  modal: {
+    backgroundColor: "#FFFFF0",
+  },
+
+  modalTitle: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  },
+
+  modalHead: {
+    backgroundColor: "#ee6a59",
+  },
+
+  formControl: {
+    width: "300px",
+    margin: "auto",
+    marginTop: "20px",
+  },
+
+  modalButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    marginTop: "20px",
+  },
 };
 
 function Home() {
+  const partyRef = useRef();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const [parties, setParties] = useState([]);
 
   useEffect(() => {
@@ -42,6 +68,23 @@ function Home() {
         console.log(err);
       });
   };
+
+  function handleAddParty(e) {
+    e.preventDefault();
+
+    let partyId = partyRef.current.value;
+    console.log(partyId);
+
+    // API.getParty(partyId)
+    //   .then((res) => {
+    //     console.log("Found the party");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    handleClose();
+  }
+  // We need to detemrine what we are doing with this. Is it just being added to state?
 
   return (
     <Container>
@@ -62,18 +105,25 @@ function Home() {
           animation={false}
           className="text-center"
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Join a Party</Modal.Title>
+          <Modal.Header closeButton style={styles.modalHead}>
+            <Modal.Title style={styles.modalTitle}>Join a Party</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Enter the party ID below.</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
+          <Modal.Body style={styles.modal} className="font-weight-bold">
+            Enter the party ID below
+            <Form onSubmit={handleAddParty}>
+              <Form.Group>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Party ID"
+                  style={styles.formControl}
+                  ref={partyRef}
+                ></Form.Control>
+                <Button style={styles.modalButton} type="submit">
+                  Join Party
+                </Button>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
         </Modal>
       </Row>
       <Row style={styles.heading}>

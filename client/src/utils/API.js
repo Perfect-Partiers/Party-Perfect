@@ -7,7 +7,7 @@ export default {
   createParty: function () {
     return axios.post("/api/parties");
   },
-  // getParty: function () {
+  // getParty: function (id) {
   //     return axios.get("/api/parties/" + id);
   // },
   // updateParty: function () {
