@@ -12,6 +12,6 @@ router
   .delete(userController.removeUser);
 
 // matches with "/api/users/signup"
-router.router("/signup").post(userController.createUser);
+router.route("/signup").post(userController.createUser);
 
 module.exports = router;
