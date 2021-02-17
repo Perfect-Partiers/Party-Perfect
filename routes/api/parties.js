@@ -1,20 +1,18 @@
 const router = require("express").Router();
 const partyController = require("../../controllers/partyController");
 
-// Matches with "/api/parties"
-router
-  .route("/")
-  .get(partyController.findAllParties)
-  .post(partyController.createParty);
+// matches with "/api/parties/all/:id"
+router.route("/all/:id").get(partyController.findAllParties); // :id is the firebase uid from the front end (currentUser.uid)
 
-// Matches with "/api/parties/:id"
+// matches with "/api/parties/:id"
 router
   .route("/:id")
-  .get(partyController.findPartyById)
-  .put(partyController.updateParty)
-  .delete(partyController.removeParty);
+  .get(partyController.findPartyById) // :id is the party _id
+  .post(partyController.createParty) // :id is the firebase uid from the front end (currentUser.uid)
+  .put(partyController.updateParty) // :id is the party _id
+  .delete(partyController.removeParty); // :id is the party _id
 
-// Matches with "/api/parties/mapbox/:id"
-router.route("/mapbox/:id").get(partyController.getMapBoxData);
+// matches with "/api/parties/mapbox/:id"
+router.route("/mapbox/:id").get(partyController.getMapBoxData); // :id is the party _id
 
 module.exports = router;

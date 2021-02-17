@@ -23,6 +23,10 @@ const UserSchema = new Schema({
       "Password should be at least 6 characters.",
     ],
   },
+  creater: {
+    type: String,
+    required: true,
+  },
   parties: [
     {
       type: Schema.Types.ObjectId,
