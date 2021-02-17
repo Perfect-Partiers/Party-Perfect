@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Container, Button, Row } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
+import API from "../utils/API";
 
 const styles = {
   button: {
@@ -18,7 +19,23 @@ const styles = {
   },
 };
 
+
 function Home() {
+  const [parties, setParties] = useState([]);
+
+  useEffect(() => {
+    loadParties();
+  }, []);
+
+  const loadParties = () => {
+    API.getParties().then(res => {
+      console.log("hello")
+      setParties(res);    
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
   return (
     <Container>
       <Row className="mt-5 mb-3 justify-content-md-center">
