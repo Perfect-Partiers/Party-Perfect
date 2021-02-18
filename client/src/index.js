@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "rc-time-picker/assets/index.css";
 import { AuthProvider } from "./components/contexts/AuthContext.js";
 
 ReactDOM.render(
