@@ -1,0 +1,33 @@
+.brand-style {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+
+.logo {
+  font-family: "Berkshire Swash", cursive;
+  font-weight: bolder;
+  font-size: 50px;
+  text-transform: capitalize;
+  width: 100%;
+}
+
+.brand-image {
+  height: 60px;
+  width: auto;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  transform: rotate(20deg);
+}
+
+.logout {
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+}
+
+.button {
+  background-color: #8dc6bf !important;
+  border-color: #8dc6bf !important;
+  width: 75px;
+}
