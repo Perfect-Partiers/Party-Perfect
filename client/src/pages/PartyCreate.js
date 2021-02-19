@@ -12,19 +12,21 @@ const styles = {
 
 function PartyCreate() {
   const { currentUser } = useAuth();
-  console.log(currentUser.uid);
+  // console.log(currentUser.uid);
 
   function makeParty(formObject) {
-    console.log(formObject)
+    console.log(currentUser.uid);
+    formObject.uid = currentUser.uid;
+    console.log(formObject);
     API.createParty({
       name: formObject.name,
-      date: formObject.date,
-      time: formObject.time,
+      date: formObject.date.toString(),
+      creator: formObject.uid,
+      time: formObject.time.toString(),
       address: {
-        street: formObject.address,
-        zip: formObject.zip,
+        street: formObject.address.toString(),
+        zip: parseInt(formObject.zip),
       },
-      creator: currentUser.uid,
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

@@ -4,9 +4,8 @@ export default {
   getParties: function (uid) {
     return axios.get("/api/parties/all/" + uid);
   },
-  createParty: function (partyData, uid) {
-    console.log("====API.createParty====");
-    return axios.post("/api/parties/" + uid, partyData);
+  createParty: function (formObject) {
+    return axios.post("/api/parties/" + formObject.creator, formObject);
   },
   getParty: function (id) {
     return axios.get("/api/parties/" + id);

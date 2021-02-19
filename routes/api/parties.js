@@ -2,7 +2,8 @@ const router = require("express").Router();
 const partyController = require("../../controllers/partyController");
 
 // matches with "/api/parties/all/:id"
-router.route("/all/:id").get(partyController.findAllParties); // :id is the firebase uid from the front end (currentUser.uid)
+router.route("/all/:id").get(partyController.findAllParties)
+ // :id is the firebase uid from the front end (currentUser.uid); // :id is the firebase uid from the front end (currentUser.uid)
 
 // matches with "/api/parties/:id"
 router
