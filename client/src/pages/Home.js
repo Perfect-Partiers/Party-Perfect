@@ -58,18 +58,32 @@ function Home() {
   const [parties, setParties] = useState([]);
   const [pastParties, setPastParties] = useState([]);
 
+  // Setting today's date
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const yyyy = today.getFullYear();
+
+  today = yyyy + "-" + mm + "-" + dd;
+  console.log(typeof today);
+
+  // Use Effect for check user, which in turn calls loadParties
   useEffect(() => {
     checkUser(currentUser);
-    // loadParties();
-    // console.log(parties);
   }, []);
 
   const loadParties = () => {
     API.getParties(currentUser.uid)
       .then((res) => {
-        console.log("hello");
-        console.log(res.data.parties);
-        // setParties(res);
+        let currentParties = res.data.parties.filter(
+          (party) => party.date >= today
+        );
+        setParties(currentParties);
+
+        let pastParties = res.data.parties.filter(
+          (party) => party.date < today
+        );
+        setPastParties(pastParties);
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +95,6 @@ function Home() {
     console.log(user);
     API.checkUser(user.uid)
       .then((res) => {
-        console.log(res.data);
         if (res.data.length === 0) {
           console.log("user not in mongodb");
           API.createUser({
@@ -106,28 +119,19 @@ function Home() {
     let partyId = partyRef.current.value;
     console.log(partyId);
 
-    // API.getParty(partyId)
-    //   .then((res) => {
-    //     console.log("Found the party");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    API.saveParty(partyId, currentUser.uid)
+      .then((res) => {
+        console.log("Found the party");
+        console.log(res.data);
+        loadParties();
+        // Testing 602f11dcae4b1dd724cb55be
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     handleClose();
   };
 
-  const loadPastParties = () => {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-
-    today = mm + "/" + dd + "/" + yyyy;
-    console.log(today);
-
-    //Need to filter through party state for parties previous to today's date
-  };
-  loadPastParties();
   // We need to detemrine what we are doing with this. Is it just being added to state?
 
   return (
@@ -174,16 +178,15 @@ function Home() {
         <h2>Upcoming</h2>
       </Row>
       <Row>
-        {/* {parties.map((party) => (
+        {parties.map((party) => (
           <PartyDetailCard key={party._id} {...party} />
-        ))} */}
-        <PartyDetailCard></PartyDetailCard>
+        ))}
       </Row>
       <Row style={styles.heading}>
         <h2>Past Events</h2>
       </Row>
       <Row>
-        <PastAccordion></PastAccordion>
+        <PastAccordion parties={pastParties}></PastAccordion>
       </Row>
     </Container>
   );
