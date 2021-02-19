@@ -28,7 +28,7 @@ function PartyCreate() {
         zip: parseInt(formObject.zip),
       },
     })
-      .then((res) => console.log(res))
+      .then((res) => window.location.replace("/home"))
       .catch((err) => console.log(err));
   }
 
