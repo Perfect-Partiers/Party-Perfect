@@ -25,19 +25,19 @@ module.exports = {
     console.log(req.body);
     let firebaseUid = req.params.id;
     db.Party.create(req.body)
-      // .then(({ _id }) =>
-      //   db.User.findOneAndUpdate(
-      //     { uid: firebaseUid },
-      //     {
-      //       $push: {
-      //         parties: _id,
-      //       },
-      //     },
-      //     {
-      //       new: true,
-      //     }
-      //   )
-      // )
+      .then(({ _id }) =>
+        db.User.findOneAndUpdate(
+          { uid: firebaseUid },
+          {
+            $push: {
+              parties: _id,
+            },
+          },
+          {
+            new: true,
+          }
+        )
+      )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
