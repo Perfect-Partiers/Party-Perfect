@@ -22,7 +22,7 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   createParty: (req, res) => {
-    console.log("====partyController.createParty====");
+    console.log(req.body);
     let firebaseUid = req.params.id;
     db.Party.create(req.body)
       .then(({ _id }) =>

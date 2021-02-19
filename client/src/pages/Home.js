@@ -3,6 +3,7 @@ import { Container, Button, Row, Modal, Form } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
+import { useAuth } from "../components/contexts/AuthContext";
 
 const styles = {
   button: {
