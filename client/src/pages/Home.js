@@ -3,7 +3,6 @@ import { Container, Button, Row, Modal, Form } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
-import { useAuth } from "../components/contexts/AuthContext";
 
 import { useAuth } from "../components/contexts/AuthContext";
 
@@ -62,7 +61,6 @@ function Home() {
   useEffect(() => {
     checkUser(currentUser);
     // loadParties();
-    // loadParties();
     // console.log(parties);
   }, []);
 
@@ -70,7 +68,7 @@ function Home() {
     API.getParties(currentUser.uid)
       .then((res) => {
         console.log("hello");
-        console.log(res.data);
+        console.log(res.data.parties);
         // setParties(res);
       })
       .catch((err) => {
