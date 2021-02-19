@@ -41,6 +41,24 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  saveParty: (req, res) => {
+    console.log("====partyController.saveParty====");
+    let partyId = req.params.id;
+    let firebaseUid = req.params.uid;
+    db.User.findOneAndUpdate(
+      { uid: firebaseUid },
+      {
+        $addToSet: {
+          parties: partyId,
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   updateParty: (req, res) => {
     console.log("====partyController.updateParty====");
     let updates = req.body;
