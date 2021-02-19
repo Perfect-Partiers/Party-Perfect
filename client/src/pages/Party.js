@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import SASDetailCard from "../components/SASDetailCard";
+import ScheduleDetailCard from "../components/ScheduleDetailCard";
 import SupplyDetailCard from "../components/SupplyDetailCard";
 import LocationCard from "../components/LocationCard";
 import API from "../utils/API";
 import { useParams } from "react-router-dom";
+import AttendeeDetailCard from "../components/AttendeeDetailCard";
 
 const styles = {
   button: {
@@ -46,14 +47,14 @@ function Party() {
     }
   };
 
-  const getFormattedTime = (fourDigitTime) => {
-    const hours24 = parseInt(fourDigitTime.substring(0, 2));
-    const hours = ((hours24 + 11) % 12) + 1;
-    const amPm = hours24 > 11 ? "pm" : "am";
-    const minutes = fourDigitTime.substring(2);
+  // const getFormattedTime = (fourDigitTime) => {
+  //   const hours24 = parseInt(fourDigitTime.substring(0, 2));
+  //   const hours = ((hours24 + 11) % 12) + 1;
+  //   const amPm = hours24 > 11 ? "pm" : "am";
+  //   const minutes = fourDigitTime.substring(2);
 
-    return hours + minutes + amPm;
-  };
+  //   return hours + minutes + amPm;
+  // };
 
   // const getPartyPosition = () => {
   //   API.getPartyMap(id).then((res) => {
@@ -72,31 +73,30 @@ function Party() {
       <Row className="justify-content-center">
         <h2 className="mr-3">
           Date & Time: {formatDate(partyData.date)} at{" "}
-          {getFormattedTime(partyData.time)}
+          {/* {getFormattedTime(partyData.time)} */}
         </h2>
         <h2>Party Code: {partyData._id}</h2>
       </Row>
       <Row>
         <Col>
-          <SASDetailCard
-            cardTitle="Schedule"
-            tableTitleOne="Time"
-            tableTitleTwo="Activity"
-            schedule={partyData.schedule}
-          ></SASDetailCard>
+          <ScheduleDetailCard
+            // schedule={partyData.schedule}
+            schedule={[{activity: "dancing", time: "2:00AM"},{activity: "running", time: "1:00PM"}]}
+            ></ScheduleDetailCard>
         </Col>
         <Col>
-          <SupplyDetailCard></SupplyDetailCard>
+          <SupplyDetailCard
+            // supplies={partyData.supplies}
+            supplies={[{supply: "pizza"},{supply: "candy"}]}
+          ></SupplyDetailCard>
         </Col>
       </Row>
       <Row className="mt-3">
         <Col>
-          <SASDetailCard
-            cardTitle="Attendees"
-            tableTitleOne="Name"
-            tableTitleTwo="Email"
-            attendees={partyData.attendees}
-          ></SASDetailCard>
+          <AttendeeDetailCard
+            // attendees={partyData.attendees}
+            attendees={[{name:"Padridg", email: "pad@ridg.com"},{name:"Brigid", email: "bri@gid.com"}]}
+          ></AttendeeDetailCard>
         </Col>
         <Col>
           {/* <LocationCard
