@@ -46,6 +46,7 @@ const styles = {
 };
 
 function Home() {
+  const { currentUser } = useAuth();
   const partyRef = useRef();
   const [show, setShow] = useState(false);
 
@@ -56,7 +57,9 @@ function Home() {
   const [pastParties, setPastParties] = useState([]);
 
   useEffect(() => {
-    loadParties();
+    checkUser(currentUser);
+    // loadParties();
+    // loadParties();
     console.log(parties);
   }, []);
 
@@ -71,18 +74,29 @@ function Home() {
       });
   };
 
-  const loadPastParties = () => {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-
-    today = mm + "/" + dd + "/" + yyyy;
-    console.log(today);
-
-    //Need to filter through party state for parties previous to today's date
+  // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
+  const checkUser = (user) => {
+    console.log(user);
+    API.checkUser(user.uid)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.length === 0) {
+          console.log("user not in mongodb");
+          API.createUser({
+            email: user.email,
+            uid: user.uid,
+          }).then((results) => {
+            console.log(results);
+          });
+        } else {
+          console.log("user already in mongodb");
+        }
+        loadParties();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  loadPastParties();
 
   const handleAddParty = (e) => {
     e.preventDefault();
@@ -99,6 +113,19 @@ function Home() {
     //   });
     handleClose();
   };
+
+  const loadPastParties = () => {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = mm + "/" + dd + "/" + yyyy;
+    console.log(today);
+
+    //Need to filter through party state for parties previous to today's date
+  };
+  loadPastParties();
   // We need to detemrine what we are doing with this. Is it just being added to state?
 
   return (

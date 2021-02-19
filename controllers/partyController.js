@@ -9,7 +9,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 module.exports = {
   findAllParties: (req, res) => {
     console.log("====partyController.findAllParties====");
-    db.User.findOne({ uid: "req.params.id" })
+    db.User.findOne({ uid: req.params.id })
       .populate("parties")
       .sort({ date: -1 })
       .then((dbModel) => res.json(dbModel))
@@ -50,9 +50,20 @@ module.exports = {
   },
   removeParty: (req, res) => {
     console.log("====partyController.removeParty====");
-    db.Party.findById({ _id: req.params.id })
+    let partyId = req.params.id;
+    let firebaseUid = req.params.uid;
+    db.Party.findById({ _id: partyId })
       .then((dbModel) => dbModel.remove())
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) =>
+        db.User.findOneAndUpdate(
+          { uid: firebaseUid },
+          {
+            $pull: {
+              parties: partyId,
+            },
+          }
+        ).then(res.json(dbModel))
+      )
       .catch((err) => res.status(422).json(err));
   },
   getMapBoxData: (req, res) => {
