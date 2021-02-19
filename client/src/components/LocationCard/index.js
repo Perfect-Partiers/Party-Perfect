@@ -15,20 +15,35 @@ const styles = {
   },
 };
 
-const LocationCard = () => {
+const LocationCard = (props) => {
+  // const [viewport, setViewport] = useState({
+  //   latitude: 47.425081,
+  //   longitude: -122.146384,
+  //   zoom: 15,
+  //   width: "300px",
+  //   height: "300px",
+  // });
+
   const [viewport, setViewport] = useState({
-    latitude: 47.425081,
-    longitude: -122.146384,
+    latitude: props.lat,
+    longitude: props.lon,
     zoom: 15,
     width: "300px",
     height: "300px",
   });
 
+  // const staticMarker = {
+  //   latitude: 47.425081,
+  //   longitude: -122.146384,
+  //   name: "Party Name Here",
+  //   address: "address here",
+  // };
+
   const staticMarker = {
-    latitude: 47.425081,
-    longitude: -122.146384,
-    name: "Party Name Here",
-    address: "address here",
+    latitude: props.lat,
+    longitude: props.lon,
+    name: props.name,
+    address: props.streetAddress,
   };
 
   const [markerSelect, setMarkerSelect] = useState(null);

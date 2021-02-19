@@ -13,44 +13,44 @@ import { useAuth } from "./components/contexts/AuthContext";
 import ForgotPassword from "../src/pages/ForgotPassword";
 
 function App() {
-     const { currentUser } = useAuth();
-     console.log(currentUser);
-     return (
-          <Router>
-               <MyNavbar />
-               {currentUser && (
-                    <Switch>
-                         <Route exact path={["/", "/home"]}>
-                              <Home />
-                         </Route>
+  const { currentUser } = useAuth();
+  console.log(currentUser);
+  return (
+    <Router>
+      <MyNavbar />
+      {currentUser && (
+        <Switch>
+          <Route exact path={["/", "/home"]}>
+            <Home />
+          </Route>
 
-                         <Route exact path="/party">
-                              <Party />
-                         </Route>
-                         <Route exact path="/partycreate">
-                              <PartyCreate />
-                         </Route>
-                    </Switch>
-               )}
-               {!currentUser && (
-                    <Switch>
-                         <Route exact path={["/login", "/"]}>
-                              <Login />
-                         </Route>
-                         <Route exact path="/create-account">
-                              <CreateAccount />
-                         </Route>
+          <Route exact path="/party/:id">
+            <Party />
+          </Route>
+          <Route exact path="/partycreate">
+            <PartyCreate />
+          </Route>
+        </Switch>
+      )}
+      {!currentUser && (
+        <Switch>
+          <Route exact path={["/login", "/"]}>
+            <Login />
+          </Route>
+          <Route exact path="/create-account">
+            <CreateAccount />
+          </Route>
 
-                         <Route path="/forgot-password">
-                              <ForgotPassword />
-                         </Route>
-                         <Route>
-                              <NoMatch />
-                         </Route>
-                    </Switch>
-               )}
-          </Router>
-     );
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route>
+            <NoMatch />
+          </Route>
+        </Switch>
+      )}
+    </Router>
+  );
 }
 
 export default App;

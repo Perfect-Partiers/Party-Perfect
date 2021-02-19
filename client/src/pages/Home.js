@@ -54,10 +54,13 @@ function Home() {
   const handleShow = () => setShow(true);
 
   const [parties, setParties] = useState([]);
+  const [pastParties, setPastParties] = useState([]);
 
   useEffect(() => {
     checkUser(currentUser);
     // loadParties();
+    // loadParties();
+    console.log(parties);
   }, []);
 
   const loadParties = () => {
@@ -95,7 +98,7 @@ function Home() {
       });
   };
 
-  function handleAddParty(e) {
+  const handleAddParty = (e) => {
     e.preventDefault();
 
     let partyId = partyRef.current.value;
@@ -109,7 +112,20 @@ function Home() {
     //     console.log(err);
     //   });
     handleClose();
-  }
+  };
+
+  const loadPastParties = () => {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = mm + "/" + dd + "/" + yyyy;
+    console.log(today);
+
+    //Need to filter through party state for parties previous to today's date
+  };
+  loadPastParties();
   // We need to detemrine what we are doing with this. Is it just being added to state?
 
   return (
@@ -156,6 +172,9 @@ function Home() {
         <h2>Upcoming</h2>
       </Row>
       <Row>
+        {/* {parties.map((party) => (
+          <PartyDetailCard key={party._id} {...party} />
+        ))} */}
         <PartyDetailCard></PartyDetailCard>
       </Row>
       <Row style={styles.heading}>
