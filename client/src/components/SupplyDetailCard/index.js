@@ -62,7 +62,6 @@ function SupplyDetailCard(props) {
         <Table responsive>
           <thead>
             <tr>
-              <th>Completed</th>
               <th>Supply</th>
             </tr>
           </thead>
@@ -75,17 +74,6 @@ function SupplyDetailCard(props) {
               props.supplies.map((supplyItem) => {
                 return (
                     <tr>
-                    <td>
-                      <ToggleButtonGroup type="checkbox" className="mb-2">
-                        <ToggleButton
-                          value={1}
-                          style={styles.toggleButton}
-                          variant="outline-dark"
-                        >
-                          Have It!
-                        </ToggleButton>
-                      </ToggleButtonGroup>
-                    </td>
                     <td>{supplyItem.supply} </td>
                   </tr>
                 );
