@@ -59,15 +59,13 @@ function Home() {
 
   useEffect(() => {
     checkUser(currentUser);
-    // loadParties();
-    // loadParties();
-    console.log(parties);
   }, []);
 
   const loadParties = () => {
-    API.getParties()
+    API.getParties(currentUser.uid)
       .then((res) => {
-        console.log("hello");
+        console.log(res);
+        console.log("Setting loaded parties to state");
         setParties(res);
       })
       .catch((err) => {
