@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-function PastAccordion() {
+function PastAccordion(props) {
   return (
     <Accordion>
       <Card style={styles.accordion}>
@@ -33,11 +33,12 @@ function PastAccordion() {
                   <th>Party Name</th>
                   <th>Date</th>
                   <th>Location</th>
-                  <th># Attendees</th>
                 </tr>
               </thead>
               <tbody>
-                <PastDetail></PastDetail>
+                {props.parties.map((party) => (
+                  <PastDetail key={party._id} {...party} />
+                ))}
               </tbody>
             </Table>
           </Card.Body>
