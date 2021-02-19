@@ -7,13 +7,12 @@ const styles = {
   },
 };
 
-function PastDetail() {
+function PastDetail(props) {
   return (
     <tr>
-      <td>Anti-COVID Party</td>
-      <td>After COVID</td>
-      <td>Where ever the hell we want</td>
-      <td>All the people</td>
+      <td>{props.name}</td>
+      <td>{props.date}</td>
+      <td>{props.address.street}</td>
     </tr>
   );
 }
