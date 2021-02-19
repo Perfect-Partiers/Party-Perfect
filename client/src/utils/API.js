@@ -1,19 +1,37 @@
 import axios from "axios";
 
 export default {
-  getParties: function () {
-    return axios.get("/api/parties");
+  getParties: function (uid) {
+    return axios.get("/api/parties/all/" + uid);
   },
-  createParty: function () {
-    return axios.post("/api/parties");
+  createParty: function (partyData, uid) {
+    console.log("====API.createParty====");
+    return axios.post("/api/parties/" + uid, partyData);
   },
-  // getParty: function (id) {
-  //     return axios.get("/api/parties/" + id);
-  // },
-  // updateParty: function () {
-  //     return axios.put("/api/parties/" + id);
-  // },
-  // deleteParty: function () {
-  //     return axios.delete("/api/parties/" + id);
-  // },
+  getParty: function (id) {
+    return axios.get("/api/parties/" + id);
+  },
+  updateParty: function (id, updates) {
+    return axios.put("/api/parties/" + id, updates);
+  },
+  deleteParty: function (id, uid) {
+    return axios.delete("/api/parties/" + id + "/" + uid);
+  },
+  updateUser: function (uid) {
+    console.log("====API.updateUser====");
+    console.log(uid);
+    return axios.put("/api/users/" + uid);
+  },
+  checkUser: function (uid) {
+    console.log("====API.checkUser====");
+    console.log(uid);
+    return axios.get("/api/users/check/" + uid);
+  },
+  createUser: function (userData) {
+    console.log("====API.createUser====");
+    return axios.post("/api/users/signup", userData);
+  },
+  getMapBoxData: function (id) {
+    return axios.get("/api/parties/mapbox/" + id);
+  },
 };
