@@ -4,6 +4,8 @@ import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
 
+import { useAuth } from "../components/contexts/AuthContext";
+
 const styles = {
   button: {
     backgroundColor: "#99658A",
@@ -60,14 +62,15 @@ function Home() {
     checkUser(currentUser);
     // loadParties();
     // loadParties();
-    console.log(parties);
+    // console.log(parties);
   }, []);
 
   const loadParties = () => {
-    API.getParties()
+    API.getParties(currentUser.uid)
       .then((res) => {
         console.log("hello");
-        setParties(res);
+        console.log(res.data);
+        // setParties(res);
       })
       .catch((err) => {
         console.log(err);
