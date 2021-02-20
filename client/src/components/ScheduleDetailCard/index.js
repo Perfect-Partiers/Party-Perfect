@@ -104,6 +104,20 @@ function ScheduleDetailCard(props) {
     return hours + minutes + amPm;
   };
 
+  const handleDeleteBtn = (event, activity) => {
+    console.log(event.target);
+    console.log("hello?");
+    API.removePartyItem(props.partyId, {
+      schedule: [
+        {
+          time: activity.time,
+          activity: activity.activity,
+          _id: activity._id,
+        },
+      ],
+    });
+  };
+
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
@@ -122,13 +136,17 @@ function ScheduleDetailCard(props) {
                 <td>Press the add to schedule button to add activities</td>
               </tr>
             ) : (
-              activitySort.map((event) => {
+              activitySort.map((activity) => {
                 return (
-                  <tr key={event._id}>
-                    <td>{event.activity}</td>
-                    <td>{event.time}</td>
+                  <tr key={activity._id}>
+                    <td>{activity.activity}</td>
+                    <td>{activity.time}</td>
                     <td>
-                      <Button style={styles.tButton} value={event._id}>
+                      <Button
+                        style={styles.tButton}
+                        value={activity._id}
+                        onClick={(event) => handleDeleteBtn(event, activity)}
+                      >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                     </td>
