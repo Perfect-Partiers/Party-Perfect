@@ -2,15 +2,15 @@
   "name": "party-perfect-practice",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://127.0.0.1:3001/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-    "rc-time-picker": "^3.7.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
-    "react-datepicker": "^3.4.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
@@ -32,6 +32,7 @@
     "production": [
       ">0.2%",
       "not dead",
+      "not ie <= 11",
       "not op_mini all"
     ],
     "development": [

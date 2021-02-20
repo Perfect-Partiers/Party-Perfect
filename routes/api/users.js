@@ -14,4 +14,7 @@ router
 // matches with "/api/users/signup"
 router.route("/signup").post(userController.createUser);
 
+// matches with "/api/users/check/:id"
+router.route("/check/:id").get(userController.checkUser);
+
 module.exports = router;
