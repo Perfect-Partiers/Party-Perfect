@@ -3,6 +3,7 @@ import { Container, Button, Row, Modal, Form } from "react-bootstrap";
 import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
+
 import { useAuth } from "../components/contexts/AuthContext";
 
 const styles = {
@@ -91,7 +92,7 @@ function Home() {
 
   // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
   const checkUser = (user) => {
-    console.log(user);
+    console.log(user.email);
     API.checkUser(user.uid)
       .then((res) => {
         if (res.data.length === 0) {

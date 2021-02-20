@@ -13,6 +13,10 @@ export default {
   updateParty: function (id, updates) {
     return axios.put("/api/parties/" + id, updates);
   },
+  saveParty: function (id, uid) {
+    console.log("====API.saveParty====");
+    return axios.put("/api/parties/save/" + id + "/" + uid);
+  },
   deleteParty: function (id, uid) {
     return axios.delete("/api/parties/" + id + "/" + uid);
   },
