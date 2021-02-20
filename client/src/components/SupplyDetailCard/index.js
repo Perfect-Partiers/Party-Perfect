@@ -1,7 +1,16 @@
-import React, {useState} from "react"
-import {Card, Table, Button, ToggleButton, ToggleButtonGroup, Modal, Form} from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Card,
+  Table,
+  Button,
+  ToggleButton,
+  ToggleButtonGroup,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import API from "../../utils/API";
 
 const styles = {
   SASDetail: {
@@ -22,40 +31,57 @@ const styles = {
     fontSize: "18px",
     width: "200px",
     height: "45px",
-    },
-    modalButton: {
-        backgroundColor: "#99658A",
-        borderColor: "#99658A",
-        fontWeight: "bold",
-        fontSize: "18px",
-        marginTop: "20px",
-      },
-      modalHead: {
-        backgroundColor: "#ee6a59",
-      },
-      modalTitle: {
-        color: "#ffffff",
-        fontWeight: "bold",
-      },
-      modal: {
-        backgroundColor: "#FFFFF0",
-      },
-      formControl: {
-        width: "300px",
-        margin: "auto",
-        marginTop: "20px",
-      },
+  },
+  modalButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    marginTop: "20px",
+  },
+  modalHead: {
+    backgroundColor: "#ee6a59",
+  },
+  modalTitle: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  },
+  modal: {
+    backgroundColor: "#FFFFF0",
+  },
+  formControl: {
+    width: "300px",
+    margin: "auto",
+    marginTop: "20px",
+  },
 };
 
 function SupplyDetailCard(props) {
-  console.log(props.supplies)
-  
+  console.log(props.supplies);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [newSupply, setNewSupply] = useState("");
+
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setNewSupply(value);
+  }
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(newSupply);
+    props.addSupply(newSupply);
+  }
+
+    const addSupply = (supply) => {
+      
+  }
     
-    return (
+  return (
     <Card style={styles.SASDetail}>
       <Card.Body>
         <Card.Title>Supplies</Card.Title>
@@ -66,24 +92,25 @@ function SupplyDetailCard(props) {
             </tr>
           </thead>
           <tbody>
-          {(!props.supplies) ? (
+            {!props.supplies ? (
               <tr>
                 <td>Press the add supply button to add supplies</td>
               </tr>
             ) : (
               props.supplies.map((supplyItem) => {
                 return (
-                    <tr>
+                  <tr>
                     <td>{supplyItem.supply} </td>
                   </tr>
                 );
               })
             )}
-                      
           </tbody>
         </Table>
-                <Button href="#" style={styles.button} onClick={handleShow}>Add Supply</Button>
-                <Modal
+        <Button href="#" style={styles.button} onClick={handleShow}>
+          Add Supply
+        </Button>
+        <Modal
           show={show}
           onHide={handleClose}
           animation={false}
@@ -94,12 +121,14 @@ function SupplyDetailCard(props) {
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
             Enter the supply below
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
               <Form.Group>
                 <Form.Control
                   type="text"
+                  name="supply"
                   placeholder="Enter Supply"
                   style={styles.formControl}
+                  onChange={handleInputChange}
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
                   Add Supply

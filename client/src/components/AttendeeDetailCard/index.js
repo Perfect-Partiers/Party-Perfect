@@ -46,6 +46,9 @@ function AttendeeDetailCard(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [newAttendee, setNewAttendee] = useState({})
+  
+  
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>

@@ -47,14 +47,6 @@ function Party() {
     }
   };
 
-  // const getFormattedTime = (fourDigitTime) => {
-  //   const hours24 = parseInt(fourDigitTime.substring(0, 2));
-  //   const hours = ((hours24 + 11) % 12) + 1;
-  //   const amPm = hours24 > 11 ? "pm" : "am";
-  //   const minutes = fourDigitTime.substring(2);
-
-  //   return hours + minutes + amPm;
-  // };
 
   // const getPartyPosition = () => {
   //   API.getPartyMap(id).then((res) => {
@@ -73,7 +65,7 @@ function Party() {
       <Row className="justify-content-center">
         <h2 className="mr-3">
           Date & Time: {formatDate(partyData.date)} at{" "}
-          {/* {getFormattedTime(partyData.time)} */}
+          {partyData.time}
         </h2>
         <h2>Party Code: {partyData._id}</h2>
       </Row>
@@ -81,13 +73,18 @@ function Party() {
         <Col>
           <ScheduleDetailCard
             // schedule={partyData.schedule}
-            schedule={[{activity: "dancing", time: "2:00AM"},{activity: "running", time: "1:00PM"}]}
-            ></ScheduleDetailCard>
+            schedule={[
+              { activity: "dancing", time: "2:00AM" },
+              { activity: "running", time: "1:00PM" },
+            ]}
+            partyId={partyData.id}
+          ></ScheduleDetailCard>
         </Col>
         <Col>
           <SupplyDetailCard
             // supplies={partyData.supplies}
-            supplies={[{supply: "pizza"},{supply: "candy"}]}
+            supplies={[{ supply: "pizza" }, { supply: "candy" }]}
+            partyId={partyData.id}
           ></SupplyDetailCard>
         </Col>
       </Row>
@@ -95,7 +92,11 @@ function Party() {
         <Col>
           <AttendeeDetailCard
             // attendees={partyData.attendees}
-            attendees={[{name:"Padridg", email: "pad@ridg.com"},{name:"Brigid", email: "bri@gid.com"}]}
+            attendees={[
+              { name: "Padridg", email: "pad@ridg.com" },
+              { name: "Brigid", email: "bri@gid.com" },
+            ]}
+            partyId={partyData.id}
           ></AttendeeDetailCard>
         </Col>
         <Col>
