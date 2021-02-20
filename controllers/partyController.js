@@ -62,7 +62,17 @@ module.exports = {
   updateParty: (req, res) => {
     console.log("====partyController.updateParty====");
     let updates = req.body;
-    db.Party.findOneAndUpdate({ _id: req.params.id }, ...updates)
+    db.Party.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: {
+          ...updates,
+        },
+      },
+      {
+        new: true,
+      }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -87,16 +97,21 @@ module.exports = {
   getMapBoxData: (req, res) => {
     console.log("====partyController.getMapBoxData====");
     db.Party.findById({ _id: req.params.id })
-      .then(({ address }) =>
-        axios.get(
-          BASEURL +
-            encodeURI(address.street) +
-            encodeURI(address.zip) +
-            ".json?access_token=" +
-            MAPBOX_TOKEN
-        )
-      )
-      .then((dbModel) => res.json(dbModel))
+      .then(({ address }) => {
+        axios
+          .get(
+            BASEURL +
+              encodeURI(address.street) +
+              "%20" +
+              encodeURI(address.zip) +
+              ".json?access_token=" +
+              MAPBOX_TOKEN
+          )
+          .then((results) => {
+            console.log("====mapbox data====");
+            res.json(results.data);
+          });
+      })
       .catch((err) => res.status(422).json(err));
   },
 };
