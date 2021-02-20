@@ -9,8 +9,12 @@ const styles = {
     fontSize: "20px",
   },
 
+  table: {
+    backgroundColor: "#fffff0",
+    borderRadius: "10px",
+  },
   tableHead: {
-    color: "#ffffff",
+    color: "#ee6a59",
   },
 };
 
@@ -23,11 +27,11 @@ function PastAccordion(props) {
           as={Card.Header}
           eventKey="0"
         >
-          Click to view past parties.
+          Click to view past parties
         </Accordion.Toggle>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
-            <Table responsive>
+            <Table responsive style={styles.table}>
               <thead style={styles.tableHead}>
                 <tr>
                   <th>Party Name</th>
