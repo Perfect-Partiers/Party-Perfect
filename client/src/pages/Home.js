@@ -65,7 +65,6 @@ function Home() {
   const yyyy = today.getFullYear();
 
   today = yyyy + "-" + mm + "-" + dd;
-  console.log(typeof today);
 
   // Use Effect for check user, which in turn calls loadParties
   useEffect(() => {
@@ -92,7 +91,6 @@ function Home() {
 
   // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
   const checkUser = (user) => {
-    console.log(user.email);
     API.checkUser(user.uid)
       .then((res) => {
         if (res.data.length === 0) {
@@ -121,18 +119,29 @@ function Home() {
 
     API.saveParty(partyId, currentUser.uid)
       .then((res) => {
-        console.log("Found the party");
-        console.log(res.data);
+        console.log("Added party to your database!");
+        addAttendee(partyId);
+
         loadParties();
-        // Testing 602f11dcae4b1dd724cb55be
+        handleClose();
       })
       .catch((err) => {
         console.log(err);
       });
-    handleClose();
   };
 
-  // We need to detemrine what we are doing with this. Is it just being added to state?
+  const addAttendee = (partyId) => {
+    let updates = {
+      attendees: [{ name: currentUser.displayName, email: currentUser.email }],
+    };
+    API.updateParty(partyId, updates)
+      .then((res) => {
+        console.log("Added current user as attendee");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
@@ -177,7 +186,7 @@ function Home() {
       <Row style={styles.heading}>
         <h2>Upcoming</h2>
       </Row>
-      <Row>
+      <Row className="justify-content-left">
         {parties.map((party) => (
           <PartyDetailCard key={party._id} {...party} />
         ))}
@@ -185,7 +194,7 @@ function Home() {
       <Row style={styles.heading}>
         <h2>Past Events</h2>
       </Row>
-      <Row>
+      <Row className="mb-5">
         <PastAccordion parties={pastParties}></PastAccordion>
       </Row>
     </Container>
