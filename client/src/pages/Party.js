@@ -74,31 +74,31 @@ function Party() {
       <Row>
         <Col>
           <ScheduleDetailCard
-            // schedule={partyData.schedule}
-            schedule={[
-              { activity: "dancing", time: "2:00AM" },
-              { activity: "running", time: "1:00PM" },
-            ]}
-            partyId={partyData.id}
+            schedule={partyData.schedule}
+            // schedule={[
+            //   { activity: "dancing", time: "2:00AM" },
+            //   { activity: "running", time: "1:00PM" },
+            // ]}
+            partyId={partyData._id}
           ></ScheduleDetailCard>
         </Col>
         <Col>
           <SupplyDetailCard
-            // supplies={partyData.supplies}
-            supplies={[{ supply: "pizza" }, { supply: "candy" }]}
-            partyId={partyData.id}
+            supplies={partyData.supplies}
+            // supplies={[{ supply: "pizza" }, { supply: "candy" }]}
+            partyId={partyData._id}
           ></SupplyDetailCard>
         </Col>
       </Row>
       <Row className="mt-3">
         <Col>
           <AttendeeDetailCard
-            // attendees={partyData.attendees}
-            attendees={[
-              { name: "Padridg", email: "pad@ridg.com" },
-              { name: "Brigid", email: "bri@gid.com" },
-            ]}
-            partyId={partyData.id}
+            attendees={partyData.attendees}
+            // attendees={[
+            //   { name: "Padridg", email: "pad@ridg.com" },
+            //   { name: "Brigid", email: "bri@gid.com" },
+            // ]}
+            partyId={partyData._id}
           ></AttendeeDetailCard>
         </Col>
         <Col>

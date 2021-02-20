@@ -54,6 +54,12 @@ const styles = {
     margin: "auto",
     marginTop: "20px",
   },
+  tButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+  },
 };
 
 function SupplyDetailCard(props) {
@@ -64,23 +70,36 @@ function SupplyDetailCard(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [newSupply, setNewSupply] = useState("");
+  const [formObject, setFormObject] = useState({});
 
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    setNewSupply(value);
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormObject({ ...formObject, [name]: value });
   }
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(newSupply);
-    props.addSupply(newSupply);
+    console.log(formObject);
+    addSupply(formObject);
+  };
+
+  const addSupply = (supply) => {
+    console.log(supply);
+    console.log(props.partyId);
+    API.updateParty(props.partyId, {
+      supplies: [
+        {
+          supply: supply.supply,
+        },
+      ],
+    });
+    handleClose();
+  };
+
+  const handleDeleteBtn = (event, id) => {
+    console.log(id)
   }
 
-    const addSupply = (supply) => {
-      
-  }
-    
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
@@ -89,6 +108,7 @@ function SupplyDetailCard(props) {
           <thead>
             <tr>
               <th>Supply</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -99,8 +119,16 @@ function SupplyDetailCard(props) {
             ) : (
               props.supplies.map((supplyItem) => {
                 return (
-                  <tr>
+                  <tr key={supplyItem._id}>
                     <td>{supplyItem.supply} </td>
+                    <td>
+                      <Button
+                        style={styles.tButton}
+                        value={supplyItem._id}
+                        onClick={event => handleDeleteBtn(event, supplyItem._id)}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    </td>
                   </tr>
                 );
               })
