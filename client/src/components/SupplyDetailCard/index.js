@@ -96,9 +96,12 @@ function SupplyDetailCard(props) {
     handleClose();
   };
 
-  const handleDeleteBtn = (event, id) => {
-    console.log(id)
-  }
+  const handleDeleteBtn = (event, id, supply) => {
+    console.log(id);
+    console.log(event.target);
+    console.log(supply);
+    
+  };
 
   return (
     <Card style={styles.SASDetail}>
@@ -125,7 +128,14 @@ function SupplyDetailCard(props) {
                       <Button
                         style={styles.tButton}
                         value={supplyItem._id}
-                        onClick={event => handleDeleteBtn(event, supplyItem._id)}>
+                        onClick={(event) =>
+                          handleDeleteBtn(
+                            event,
+                            supplyItem._id,
+                            supplyItem.supply
+                          )
+                        }
+                      >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                     </td>
