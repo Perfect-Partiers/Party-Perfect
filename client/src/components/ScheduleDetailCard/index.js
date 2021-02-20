@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Table,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import React, {useState} from "react";
+import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import API from "../../utils/API";
 
 const styles = {
   SASDetail: {
@@ -18,14 +9,6 @@ const styles = {
   },
   button: {
     backgroundColor: "#99658A",
-    borderColor: "#99658A",
-    fontWeight: "bold",
-    fontSize: "18px",
-    width: "200px",
-    height: "45px",
-  },
-  toggleButton: {
-    backgroundColor: "#EE6A59",
     borderColor: "#99658A",
     fontWeight: "bold",
     fontSize: "18px",
@@ -56,60 +39,53 @@ const styles = {
   },
 };
 
-function SupplyDetailCard(props) {
-  console.log(props.supplies);
-
+function ScheduleDetailCard(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [newSupply, setNewSupply] = useState("");
+  let activitySort = []
 
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    setNewSupply(value);
+  if (props.schedule) {
+    activitySort = props.schedule.sort(function(a, b) {
+      return Date.parse('1970/01/01 ' + a.time.slice(0, -2) + ' ' + a.time.slice(-2)) - Date.parse('1970/01/01 ' + b.time.slice(0, -2) + ' ' + b.time.slice(-2))
+    });
+  } else {
+    activitySort = []
   }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log(newSupply);
-    props.addSupply(newSupply);
-  }
-
-    const addSupply = (supply) => {
-      
-  }
-    
+  
+  
+  
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
+        <Card.Title>Schedule</Card.Title>
         <Table responsive>
           <thead>
             <tr>
-              <th>Supply</th>
+              <th>Activity</th>
+              <th>Time</th>
             </tr>
           </thead>
           <tbody>
-            {!props.supplies ? (
+          {(!props.schedule) ? (
               <tr>
-                <td>Press the add supply button to add supplies</td>
+                <td>Press the add to schedule button to add activities</td>
               </tr>
             ) : (
-              props.supplies.map((supplyItem) => {
+              activitySort.map((event) => {
                 return (
-                  <tr>
-                    <td>{supplyItem.supply} </td>
+                  <tr key={event.activity}>
+                    <td>{event.activity}</td>
+                    <td>{event.time}</td>
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
-        </Button>
+        <Button href="#" style={styles.button} onClick={handleShow}>Add to Schedule</Button>
         <Modal
           show={show}
           onHide={handleClose}
@@ -117,21 +93,24 @@ function SupplyDetailCard(props) {
           className="text-center"
         >
           <Modal.Header closeButton style={styles.modalHead}>
-            <Modal.Title style={styles.modalTitle}>Add Supplies</Modal.Title>
+            <Modal.Title style={styles.modalTitle}>Add Activity</Modal.Title>
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
-            Enter the supply below
-            <Form onSubmit={handleFormSubmit}>
+            Enter the activity name and time below
+            <Form>
               <Form.Group>
                 <Form.Control
                   type="text"
-                  name="supply"
-                  placeholder="Enter Supply"
+                  placeholder="Enter Activity"
                   style={styles.formControl}
-                  onChange={handleInputChange}
+                ></Form.Control>
+                <Form.Control
+                  type="time"
+                  placeholder="Enter Time"
+                  style={styles.formControl}
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
-                  Add Supply
+                  Add Activity
                 </Button>
               </Form.Group>
             </Form>
@@ -142,4 +121,4 @@ function SupplyDetailCard(props) {
   );
 }
 
-export default SupplyDetailCard;
+export default ScheduleDetailCard;
