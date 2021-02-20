@@ -10,8 +10,10 @@ router
   .route("/:id")
   .get(partyController.findPartyById) // :id is the party _id
   .post(partyController.createParty) // :id is the firebase uid from the front end (currentUser.uid)
-  .put(partyController.updateParty) // :id is the party _id
-  .delete(partyController.removeParty); // :id is the party _id
+  .put(partyController.updateParty); // :id is the party _id
+
+// matches with "/api/parties/:id/:uid"
+router.route("/api/parties/:id/:uid").delete(partyController.removeParty); // :id is the party _id and :uid is the firebase uid from the front end (currentUser.uid)
 
 // matches with "/api/parties/save/:id/:uid"
 router.route("/save/:id/:uid").put(partyController.saveParty);
