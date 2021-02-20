@@ -13,6 +13,7 @@ import { useAuth } from "./components/contexts/AuthContext";
 import ForgotPassword from "../src/pages/ForgotPassword";
 
 function App() {
+<<<<<<< HEAD
      const { currentUser } = useAuth();
      console.log(currentUser);
      return (
@@ -52,6 +53,32 @@ function App() {
                )}
           </Router>
      );
+=======
+  const { currentUser } = useAuth();
+  console.log(currentUser);
+  return (
+    <Router>
+      <MyNavbar />
+      {currentUser && (
+        <Switch>
+          <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path="/party/:id" component={Party} />
+          <Route exact path="/partycreate" component={PartyCreate} />
+        </Switch>
+      )}
+      {!currentUser && (
+        <Switch>
+          <Route exact path={["/login", "/"]} component={Login} />
+          <Route exact path="/create-account" component={CreateAccount} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+          <Route>
+            <NoMatch />
+          </Route>
+        </Switch>
+      )}
+    </Router>
+  );
+>>>>>>> 1d1e05dc84acf5fe2e5c134bcb36dd9155d348cc
 }
 
 export default App;

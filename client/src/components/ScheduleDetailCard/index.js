@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import API from "../../utils/API";
 
 const styles = {
   SASDetail: {
@@ -37,26 +38,72 @@ const styles = {
     margin: "auto",
     marginTop: "20px",
   },
+  tButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+  },
 };
 
 function ScheduleDetailCard(props) {
   const [show, setShow] = useState(false);
+  const [formObject, setFormObject] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  let activitySort = []
+  let activitySort = [];
 
   if (props.schedule) {
-    activitySort = props.schedule.sort(function(a, b) {
-      return Date.parse('1970/01/01 ' + a.time.slice(0, -2) + ' ' + a.time.slice(-2)) - Date.parse('1970/01/01 ' + b.time.slice(0, -2) + ' ' + b.time.slice(-2))
+    activitySort = props.schedule.sort(function (a, b) {
+      return (
+        Date.parse(
+          "1970/01/01 " + a.time.slice(0, -2) + " " + a.time.slice(-2)
+        ) -
+        Date.parse("1970/01/01 " + b.time.slice(0, -2) + " " + b.time.slice(-2))
+      );
     });
   } else {
-    activitySort = []
+    activitySort = [];
   }
-  
-  
-  
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormObject({ ...formObject, [name]: value });
+  }
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(formObject);
+    addActivity(formObject);
+  };
+
+  const addActivity = (activity) => {
+    console.log(activity);
+    console.log(props.partyId);
+    activity.time = getFormattedTime(activity.time);
+    console.log(activity.time);
+    API.updateParty(props.partyId, {
+      schedule: [
+        {
+          time: activity.time,
+          activity: activity.activity,
+        },
+      ],
+    });
+    handleClose();
+  };
+
+  const getFormattedTime = (fourDigitTime) => {
+    const hours24 = parseInt(fourDigitTime.substring(0, 2));
+    const hours = ((hours24 + 11) % 12) + 1;
+    const amPm = hours24 > 11 ? "pm" : "am";
+    const minutes = fourDigitTime.substring(2);
+
+    return hours + minutes + amPm;
+  };
+
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
@@ -66,26 +113,34 @@ function ScheduleDetailCard(props) {
             <tr>
               <th>Activity</th>
               <th>Time</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
-          {(!props.schedule) ? (
+            {!props.schedule ? (
               <tr>
                 <td>Press the add to schedule button to add activities</td>
               </tr>
             ) : (
               activitySort.map((event) => {
                 return (
-                  <tr key={event.activity}>
+                  <tr key={event._id}>
                     <td>{event.activity}</td>
                     <td>{event.time}</td>
+                    <td>
+                      <Button style={styles.tButton} value={event._id}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    </td>
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>Add to Schedule</Button>
+        <Button href="#" style={styles.button} onClick={handleShow}>
+          Add to Schedule
+        </Button>
         <Modal
           show={show}
           onHide={handleClose}
@@ -97,17 +152,21 @@ function ScheduleDetailCard(props) {
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
             Enter the activity name and time below
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
               <Form.Group>
                 <Form.Control
                   type="text"
                   placeholder="Enter Activity"
                   style={styles.formControl}
+                  onChange={handleInputChange}
+                  name="activity"
                 ></Form.Control>
                 <Form.Control
                   type="time"
                   placeholder="Enter Time"
                   style={styles.formControl}
+                  onChange={handleInputChange}
+                  name="time"
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
                   Add Activity

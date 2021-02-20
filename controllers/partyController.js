@@ -76,6 +76,21 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  updatePartyItems: (req, res) => {
+    console.log("====partyController.updatePartyItems====");
+    let itemKey = req.body;
+    let itemId = req.body.id;
+    db.Party.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: {
+          [itemKey]: itemId,
+        },
+      }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   removeParty: (req, res) => {
     console.log("====partyController.removeParty====");
     let partyId = req.params.id;
@@ -108,7 +123,6 @@ module.exports = {
               MAPBOX_TOKEN
           )
           .then((results) => {
-            console.log("====mapbox data====");
             res.json(results.data);
           });
       })
