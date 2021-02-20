@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Table,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import API from "../../utils/API";
 
 const styles = {
   SASDetail: {
@@ -18,14 +9,6 @@ const styles = {
   },
   button: {
     backgroundColor: "#99658A",
-    borderColor: "#99658A",
-    fontWeight: "bold",
-    fontSize: "18px",
-    width: "200px",
-    height: "45px",
-  },
-  toggleButton: {
-    backgroundColor: "#EE6A59",
     borderColor: "#99658A",
     fontWeight: "bold",
     fontSize: "18px",
@@ -56,51 +39,38 @@ const styles = {
   },
 };
 
-function SupplyDetailCard(props) {
-  console.log(props.supplies);
-
+function AttendeeDetailCard(props) {
+  // const [attendeeList, setAttendeeList] = setState(null)
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [newSupply, setNewSupply] = useState("");
-
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    setNewSupply(value);
-  }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log(newSupply);
-    props.addSupply(newSupply);
-  }
-
-    const addSupply = (supply) => {
-      
-  }
-    
+  const [newAttendee, setNewAttendee] = useState({})
+  
+  
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
+        <Card.Title>Attendees</Card.Title>
         <Table responsive>
           <thead>
             <tr>
-              <th>Supply</th>
+              <th>Name</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {!props.supplies ? (
+            {!props.attendees ? (
               <tr>
-                <td>Press the add supply button to add supplies</td>
+                <td>Press the add attendee button to add attendees</td>
               </tr>
             ) : (
-              props.supplies.map((supplyItem) => {
+              props.attendees.map((attendee) => {
                 return (
-                  <tr>
-                    <td>{supplyItem.supply} </td>
+                  <tr key={attendee.email}>
+                    <td>{attendee.name}</td>
+                    <td>{attendee.email}</td>
                   </tr>
                 );
               })
@@ -108,7 +78,7 @@ function SupplyDetailCard(props) {
           </tbody>
         </Table>
         <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
+          Add Attendee
         </Button>
         <Modal
           show={show}
@@ -117,21 +87,24 @@ function SupplyDetailCard(props) {
           className="text-center"
         >
           <Modal.Header closeButton style={styles.modalHead}>
-            <Modal.Title style={styles.modalTitle}>Add Supplies</Modal.Title>
+            <Modal.Title style={styles.modalTitle}>Add Attendee</Modal.Title>
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
-            Enter the supply below
-            <Form onSubmit={handleFormSubmit}>
+            Enter the attendee's name and email below
+            <Form>
               <Form.Group>
                 <Form.Control
                   type="text"
-                  name="supply"
-                  placeholder="Enter Supply"
+                  placeholder="Enter Attendee Name"
                   style={styles.formControl}
-                  onChange={handleInputChange}
+                ></Form.Control>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Attendee Email"
+                  style={styles.formControl}
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
-                  Add Supply
+                  Add Attendee
                 </Button>
               </Form.Group>
             </Form>
@@ -142,4 +115,4 @@ function SupplyDetailCard(props) {
   );
 }
 
-export default SupplyDetailCard;
+export default AttendeeDetailCard;
