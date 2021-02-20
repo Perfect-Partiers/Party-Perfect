@@ -6,7 +6,6 @@ import API from "../utils/API";
 import firebase from "../firebase.js";
 import { useAuth } from "../components/contexts/AuthContext";
 
-import { useAuth } from "../components/contexts/AuthContext";
 
 const styles = {
   button: {
