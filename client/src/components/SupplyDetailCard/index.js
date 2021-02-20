@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Table,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
@@ -63,7 +55,7 @@ const styles = {
 };
 
 function SupplyDetailCard(props) {
-  console.log(props.supplies);
+  // console.log(props.supplies);
 
   const [show, setShow] = useState(false);
 
@@ -100,7 +92,14 @@ function SupplyDetailCard(props) {
     console.log(id);
     console.log(event.target);
     console.log(supply);
-    
+    API.removePartyItem(props.partyId, {
+      supplies: [
+        {
+          supply: supply,
+          _id: id,
+        },
+      ],
+    });
   };
 
   return (

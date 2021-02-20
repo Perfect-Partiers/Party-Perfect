@@ -37,4 +37,7 @@ export default {
   getMapBoxData: function (id) {
     return axios.get("/api/parties/mapbox/" + id);
   },
+  removePartyItem: function (id, updates) {
+    return axios.put("/api/parties/items" + id, updates);
+  },
 };
