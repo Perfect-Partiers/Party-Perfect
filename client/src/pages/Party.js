@@ -27,7 +27,7 @@ function Party() {
       .then((res) => {
         setPartyData(res.data);
         console.log(res.data);
-        // getPartyPosition();
+        getPartyPosition();
       })
       .catch((err) => console.log(err));
   };
@@ -47,16 +47,19 @@ function Party() {
     }
   };
 
+  const getPartyPosition = () => {
+    console.log("====getPartyPosition====");
+    API.getMapBoxData(id)
+      .then((res) => {
+        console.log(res.data);
+        setPartyPosition({
+          lat: parseFloat(res.data.features[0].geometry.coordinates[1]),
+          lon: parseFloat(res.data.features[0].geometry.coordinates[0]),
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
-  // const getPartyPosition = () => {
-  //   API.getPartyMap(id).then((res) => {
-  //     console.log("getPartyPosition = " + res);
-  //     setPartyPosition({
-  //       lat: parseFloat(res.features[0].geometry.coordinates[1]),
-  //       lon: parseFloat(res.features[0].geometry.coordinates[0]),
-  //     });
-  //   });
-  // };
   return (
     <Container>
       <Row className="justify-content-center">
@@ -64,48 +67,49 @@ function Party() {
       </Row>
       <Row className="justify-content-center">
         <h2 className="mr-3">
-          Date & Time: {formatDate(partyData.date)} at{" "}
-          {partyData.time}
+          Date & Time: {formatDate(partyData.date)} at {partyData.time}
         </h2>
         <h2>Party Code: {partyData._id}</h2>
       </Row>
       <Row>
         <Col>
           <ScheduleDetailCard
-            // schedule={partyData.schedule}
-            schedule={[
-              { activity: "dancing", time: "2:00AM" },
-              { activity: "running", time: "1:00PM" },
-            ]}
-            partyId={partyData.id}
+            schedule={partyData.schedule}
+            // schedule={[
+            //   { activity: "dancing", time: "2:00AM" },
+            //   { activity: "running", time: "1:00PM" },
+            // ]}
+            partyId={partyData._id}
           ></ScheduleDetailCard>
         </Col>
         <Col>
           <SupplyDetailCard
-            // supplies={partyData.supplies}
-            supplies={[{ supply: "pizza" }, { supply: "candy" }]}
-            partyId={partyData.id}
+            supplies={partyData.supplies}
+            // supplies={[{ supply: "pizza" }, { supply: "candy" }]}
+            partyId={partyData._id}
           ></SupplyDetailCard>
         </Col>
       </Row>
       <Row className="mt-3">
         <Col>
           <AttendeeDetailCard
-            // attendees={partyData.attendees}
-            attendees={[
-              { name: "Padridg", email: "pad@ridg.com" },
-              { name: "Brigid", email: "bri@gid.com" },
-            ]}
-            partyId={partyData.id}
+            attendees={partyData.attendees}
+            // attendees={[
+            //   { name: "Padridg", email: "pad@ridg.com" },
+            //   { name: "Brigid", email: "bri@gid.com" },
+            // ]}
+            partyId={partyData._id}
           ></AttendeeDetailCard>
         </Col>
         <Col>
-          {/* <LocationCard
-            lat={partyPosition.lat}
-            lon={partyPosition.lon}
-            name={partyData.name}
-            address={partyData.address.street}
-          ></LocationCard> */}
+          <LocationCard
+            lat={partyPosition.lat !== undefined ? partyPosition.lat : 0}
+            lon={partyPosition.lon !== undefined ? partyPosition.lon : 0}
+            name={partyData.name !== undefined ? partyData.name : ""}
+            address={
+              partyData.address !== undefined ? partyData.address.street : ""
+            }
+          ></LocationCard>
         </Col>
       </Row>
     </Container>
