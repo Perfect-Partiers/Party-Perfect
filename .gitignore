@@ -107,4 +107,4 @@ dist
 # Other
 .DS_Store
 
-/ignore
+/client/ignore
