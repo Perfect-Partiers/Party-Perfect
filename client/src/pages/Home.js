@@ -136,7 +136,7 @@ function Home() {
   return (
     <Container>
       <Row className="mt-5 mb-3 justify-content-md-center">
-        <h1>Welcome Perfect Partier Padridg!</h1>
+        <h1>Welcome Perfect Partier {currentUser.displayName}!</h1>
       </Row>
       <Row className="justify-content-md-center">
         <Button href="/partycreate" style={styles.button} className="mr-4">
