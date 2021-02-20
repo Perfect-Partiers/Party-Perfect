@@ -14,9 +14,10 @@ function PartyCreate() {
   const { currentUser } = useAuth();
   // console.log(currentUser.uid);
 
-  function makeParty(formObject) {
+  const makeParty = (formObject) => {
     console.log(currentUser.uid);
     formObject.uid = currentUser.uid;
+    formObject.time = getFormattedTime(formObject.time)
     console.log(formObject);
     API.createParty({
       name: formObject.name,
@@ -28,9 +29,18 @@ function PartyCreate() {
         zip: parseInt(formObject.zip),
       },
     })
-      .then((res) => console.log(res))
+      .then((res) => window.location.replace("/home"))
       .catch((err) => console.log(err));
   }
+  
+  const getFormattedTime = (fourDigitTime) => {
+    const hours24 = parseInt(fourDigitTime.substring(0, 2));
+    const hours = ((hours24 + 11) % 12) + 1;
+    const amPm = hours24 > 11 ? "pm" : "am";
+    const minutes = fourDigitTime.substring(2);
+
+    return hours + minutes + amPm;
+  };
 
   return (
     <Container>

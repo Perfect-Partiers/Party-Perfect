@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import Card from "react-bootstrap/Card";
 
@@ -27,7 +27,7 @@ const LocationCard = (props) => {
   const [viewport, setViewport] = useState({
     latitude: props.lat,
     longitude: props.lon,
-    zoom: 15,
+    zoom: -10,
     width: "300px",
     height: "300px",
   });
@@ -43,16 +43,33 @@ const LocationCard = (props) => {
     latitude: props.lat,
     longitude: props.lon,
     name: props.name,
-    address: props.streetAddress,
+    address: props.address,
   };
 
   const [markerSelect, setMarkerSelect] = useState(null);
+
+  useEffect(() => {
+    if (viewport.zoom === -10) {
+      setTimeout(() => {
+        setViewport({
+          ...viewport,
+          zoom: 15,
+        });
+      }, 700);
+    } else {
+      setViewport({
+        ...viewport,
+        latitude: props.lat,
+        longitude: props.lon,
+      });
+    }
+  }, [viewport.zoom]);
 
   return (
     <Card style={styles.locationDetail}>
       <Card.Body>
         <Card.Title>Location</Card.Title>
-        <h4>props.address</h4>
+        <h4>{props.address}</h4>
         <div>
           <ReactMapGl
             {...viewport}
@@ -73,7 +90,7 @@ const LocationCard = (props) => {
                   setMarkerSelect(staticMarker);
                 }}
               >
-                <img src="favicon-16x16.png"></img>
+                <img src="/favicon-16x16.png"></img>
               </button>
             </Marker>
             {markerSelect ? (

@@ -41,10 +41,53 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  saveParty: (req, res) => {
+    console.log("====partyController.saveParty====");
+    let partyId = req.params.id;
+    let firebaseUid = req.params.uid;
+    db.User.findOneAndUpdate(
+      { uid: firebaseUid },
+      {
+        $addToSet: {
+          parties: partyId,
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   updateParty: (req, res) => {
     console.log("====partyController.updateParty====");
     let updates = req.body;
-    db.Party.findOneAndUpdate({ _id: req.params.id }, ...updates)
+    db.Party.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: {
+          ...updates,
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  updatePartyItems: (req, res) => {
+    console.log("====partyController.updatePartyItems====");
+    let itemKey = req.body;
+    let itemId = req.body.id;
+    db.Party.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: {
+          [itemKey]: itemId,
+        },
+      }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -69,16 +112,20 @@ module.exports = {
   getMapBoxData: (req, res) => {
     console.log("====partyController.getMapBoxData====");
     db.Party.findById({ _id: req.params.id })
-      .then(({ address }) =>
-        axios.get(
-          BASEURL +
-            encodeURI(address.street) +
-            encodeURI(address.zip) +
-            ".json?access_token=" +
-            MAPBOX_TOKEN
-        )
-      )
-      .then((dbModel) => res.json(dbModel))
+      .then(({ address }) => {
+        axios
+          .get(
+            BASEURL +
+              encodeURI(address.street) +
+              "%20" +
+              encodeURI(address.zip) +
+              ".json?access_token=" +
+              MAPBOX_TOKEN
+          )
+          .then((results) => {
+            res.json(results.data);
+          });
+      })
       .catch((err) => res.status(422).json(err));
   },
 };

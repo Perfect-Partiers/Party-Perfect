@@ -9,12 +9,16 @@ const styles = {
     fontSize: "20px",
   },
 
+  table: {
+    backgroundColor: "#fffff0",
+    borderRadius: "10px",
+  },
   tableHead: {
-    color: "#ffffff",
+    color: "#ee6a59",
   },
 };
 
-function PastAccordion() {
+function PastAccordion(props) {
   return (
     <Accordion>
       <Card style={styles.accordion}>
@@ -23,21 +27,22 @@ function PastAccordion() {
           as={Card.Header}
           eventKey="0"
         >
-          Click to view past parties.
+          Click to view past parties
         </Accordion.Toggle>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
-            <Table responsive>
+            <Table responsive style={styles.table}>
               <thead style={styles.tableHead}>
                 <tr>
                   <th>Party Name</th>
                   <th>Date</th>
                   <th>Location</th>
-                  <th># Attendees</th>
                 </tr>
               </thead>
               <tbody>
-                <PastDetail></PastDetail>
+                {props.parties.map((party) => (
+                  <PastDetail key={party._id} {...party} />
+                ))}
               </tbody>
             </Table>
           </Card.Body>

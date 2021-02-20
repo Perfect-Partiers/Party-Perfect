@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -10,14 +10,6 @@ const styles = {
   },
   button: {
     backgroundColor: "#99658A",
-    borderColor: "#99658A",
-    fontWeight: "bold",
-    fontSize: "18px",
-    width: "200px",
-    height: "45px",
-  },
-  toggleButton: {
-    backgroundColor: "#EE6A59",
     borderColor: "#99658A",
     fontWeight: "bold",
     fontSize: "18px",
@@ -54,15 +46,12 @@ const styles = {
   },
 };
 
-function SupplyDetailCard(props) {
-  // console.log(props.supplies);
-
+function AttendeeDetailCard(props) {
   const [show, setShow] = useState(false);
+  const [formObject, setFormObject] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [formObject, setFormObject] = useState({});
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -72,69 +61,67 @@ function SupplyDetailCard(props) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(formObject);
-    addSupply(formObject);
+    addAttendee(formObject);
   };
 
-  const addSupply = (supply) => {
-    console.log(supply);
+  const addAttendee = (attendee) => {
+    console.log(attendee);
     console.log(props.partyId);
     API.updateParty(props.partyId, {
-      supplies: [
+      attendees: [
         {
-          supply: supply.supply,
+          name: attendee.name,
+          email: attendee.email,
         },
       ],
     });
     handleClose();
   };
 
-  const handleDeleteBtn = (event, id, supply) => {
-    console.log(id);
+  const handleDeleteBtn = (event, attendee) => {
+    // console.log(id);
     console.log(event.target);
-    console.log(supply);
+    console.log(attendee);
     API.removePartyItem(props.partyId, {
-      supplies: [
+      attendees: [
         {
-          supply: supply,
-          _id: id,
+          name: attendee.name,
+          email: attendee.email,
+          _id: attendee._id,
         },
       ],
     });
   };
-
+    
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
+        <Card.Title>Attendees</Card.Title>
         <Table responsive>
           <thead>
             <tr>
-              <th>Supply</th>
+              <th>Name</th>
+              <th>Email</th>
               <th>Remove</th>
             </tr>
           </thead>
           <tbody>
-            {!props.supplies ? (
+            {!props.attendees ? (
               <tr>
-                <td>Press the add supply button to add supplies</td>
+                <td>Press the add attendee button to add attendees</td>
               </tr>
             ) : (
-              props.supplies.map((supplyItem) => {
+              props.attendees.map((attendee) => {
                 return (
-                  <tr key={supplyItem._id}>
-                    <td>{supplyItem.supply} </td>
+                  <tr key={attendee._id}>
+                    <td>{attendee.name}</td>
+                    <td>{attendee.email}</td>
                     <td>
-                      <Button
-                        style={styles.tButton}
-                        value={supplyItem._id}
-                        onClick={(event) =>
-                          handleDeleteBtn(
-                            event,
-                            supplyItem._id,
-                            supplyItem.supply
-                          )
-                        }
-                      >
+                            <Button
+                                style={styles.tButton}
+                                value={attendee._id}
+                                onClick={(event) => 
+                                handleDeleteBtn(event, attendee)}>
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                     </td>
@@ -145,7 +132,7 @@ function SupplyDetailCard(props) {
           </tbody>
         </Table>
         <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
+          Add Attendee
         </Button>
         <Modal
           show={show}
@@ -154,21 +141,28 @@ function SupplyDetailCard(props) {
           className="text-center"
         >
           <Modal.Header closeButton style={styles.modalHead}>
-            <Modal.Title style={styles.modalTitle}>Add Supplies</Modal.Title>
+            <Modal.Title style={styles.modalTitle}>Add Attendee</Modal.Title>
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
-            Enter the supply below
+            Enter the attendee's name and email below
             <Form onSubmit={handleFormSubmit}>
               <Form.Group>
                 <Form.Control
                   type="text"
-                  name="supply"
-                  placeholder="Enter Supply"
+                  placeholder="Enter Attendee Name"
                   style={styles.formControl}
                   onChange={handleInputChange}
+                  name="name"
+                ></Form.Control>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Attendee Email"
+                  style={styles.formControl}
+                  onChange={handleInputChange}
+                  name="email"
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
-                  Add Supply
+                  Add Attendee
                 </Button>
               </Form.Group>
             </Form>
@@ -179,4 +173,4 @@ function SupplyDetailCard(props) {
   );
 }
 
-export default SupplyDetailCard;
+export default AttendeeDetailCard;

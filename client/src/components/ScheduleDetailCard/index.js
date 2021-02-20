@@ -16,14 +16,6 @@ const styles = {
     width: "200px",
     height: "45px",
   },
-  toggleButton: {
-    backgroundColor: "#EE6A59",
-    borderColor: "#99658A",
-    fontWeight: "bold",
-    fontSize: "18px",
-    width: "200px",
-    height: "45px",
-  },
   modalButton: {
     backgroundColor: "#99658A",
     borderColor: "#99658A",
@@ -54,15 +46,27 @@ const styles = {
   },
 };
 
-function SupplyDetailCard(props) {
-  // console.log(props.supplies);
-
+function ScheduleDetailCard(props) {
   const [show, setShow] = useState(false);
+  const [formObject, setFormObject] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [formObject, setFormObject] = useState({});
+  let activitySort = [];
+
+  if (props.schedule) {
+    activitySort = props.schedule.sort(function (a, b) {
+      return (
+        Date.parse(
+          "1970/01/01 " + a.time.slice(0, -2) + " " + a.time.slice(-2)
+        ) -
+        Date.parse("1970/01/01 " + b.time.slice(0, -2) + " " + b.time.slice(-2))
+      );
+    });
+  } else {
+    activitySort = [];
+  }
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -72,31 +76,43 @@ function SupplyDetailCard(props) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(formObject);
-    addSupply(formObject);
+    addActivity(formObject);
   };
 
-  const addSupply = (supply) => {
-    console.log(supply);
+  const addActivity = (activity) => {
+    console.log(activity);
     console.log(props.partyId);
+    activity.time = getFormattedTime(activity.time);
+    console.log(activity.time);
     API.updateParty(props.partyId, {
-      supplies: [
+      schedule: [
         {
-          supply: supply.supply,
+          time: activity.time,
+          activity: activity.activity,
         },
       ],
     });
     handleClose();
   };
 
-  const handleDeleteBtn = (event, id, supply) => {
-    console.log(id);
+  const getFormattedTime = (fourDigitTime) => {
+    const hours24 = parseInt(fourDigitTime.substring(0, 2));
+    const hours = ((hours24 + 11) % 12) + 1;
+    const amPm = hours24 > 11 ? "pm" : "am";
+    const minutes = fourDigitTime.substring(2);
+
+    return hours + minutes + amPm;
+  };
+
+  const handleDeleteBtn = (event, activity) => {
     console.log(event.target);
-    console.log(supply);
+    console.log("hello?");
     API.removePartyItem(props.partyId, {
-      supplies: [
+      schedule: [
         {
-          supply: supply,
-          _id: id,
+          time: activity.time,
+          activity: activity.activity,
+          _id: activity._id,
         },
       ],
     });
@@ -105,35 +121,31 @@ function SupplyDetailCard(props) {
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
+        <Card.Title>Schedule</Card.Title>
         <Table responsive>
           <thead>
             <tr>
-              <th>Supply</th>
+              <th>Activity</th>
+              <th>Time</th>
               <th>Remove</th>
             </tr>
           </thead>
           <tbody>
-            {!props.supplies ? (
+            {!props.schedule ? (
               <tr>
-                <td>Press the add supply button to add supplies</td>
+                <td>Press the add to schedule button to add activities</td>
               </tr>
             ) : (
-              props.supplies.map((supplyItem) => {
+              activitySort.map((activity) => {
                 return (
-                  <tr key={supplyItem._id}>
-                    <td>{supplyItem.supply} </td>
+                  <tr key={activity._id}>
+                    <td>{activity.activity}</td>
+                    <td>{activity.time}</td>
                     <td>
                       <Button
                         style={styles.tButton}
-                        value={supplyItem._id}
-                        onClick={(event) =>
-                          handleDeleteBtn(
-                            event,
-                            supplyItem._id,
-                            supplyItem.supply
-                          )
-                        }
+                        value={activity._id}
+                        onClick={(event) => handleDeleteBtn(event, activity)}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
@@ -145,7 +157,7 @@ function SupplyDetailCard(props) {
           </tbody>
         </Table>
         <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
+          Add to Schedule
         </Button>
         <Modal
           show={show}
@@ -154,21 +166,28 @@ function SupplyDetailCard(props) {
           className="text-center"
         >
           <Modal.Header closeButton style={styles.modalHead}>
-            <Modal.Title style={styles.modalTitle}>Add Supplies</Modal.Title>
+            <Modal.Title style={styles.modalTitle}>Add Activity</Modal.Title>
           </Modal.Header>
           <Modal.Body style={styles.modal} className="font-weight-bold">
-            Enter the supply below
+            Enter the activity name and time below
             <Form onSubmit={handleFormSubmit}>
               <Form.Group>
                 <Form.Control
                   type="text"
-                  name="supply"
-                  placeholder="Enter Supply"
+                  placeholder="Enter Activity"
                   style={styles.formControl}
                   onChange={handleInputChange}
+                  name="activity"
+                ></Form.Control>
+                <Form.Control
+                  type="time"
+                  placeholder="Enter Time"
+                  style={styles.formControl}
+                  onChange={handleInputChange}
+                  name="time"
                 ></Form.Control>
                 <Button style={styles.modalButton} type="submit">
-                  Add Supply
+                  Add Activity
                 </Button>
               </Form.Group>
             </Form>
@@ -179,4 +198,4 @@ function SupplyDetailCard(props) {
   );
 }
 
-export default SupplyDetailCard;
+export default ScheduleDetailCard;

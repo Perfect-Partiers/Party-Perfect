@@ -1,10 +1,13 @@
 import React from "react";
-import { CardColumns, Card, Col } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
+    width: "350px",
+    margin: "0",
   },
 
   title: {
@@ -13,30 +16,64 @@ const styles = {
     fontWeight: "bolder",
   },
 
-  footer: {},
+  footer: {
+    borderRadius: "10px",
+    backgroundColor: "#fffff0",
+  },
+
+  partyId: {
+    color: "#ee6a59",
+  },
 };
 
-function PartyDetailCard() {
+const PartyDetailCard = (props) => {
+  // Function for reformatting the date
+  const formatDate = (inputDate) => {
+    var date = new Date(inputDate);
+    if (!isNaN(date.getTime())) {
+      // Months use 0 index.
+      return (
+        date.getMonth() +
+        1 +
+        "/" +
+        (date.getDate() + 1) +
+        "/" +
+        date.getFullYear()
+      );
+    }
+  };
+
+  const url = "/party/" + props._id;
+
   return (
-    <Col>
-      <CardColumns>
-        <Card style={styles.card}>
+    <Col className="column">
+      <Link className="link" to={url}>
+        <Card className="partyCard mt-3 text-center" style={styles.card}>
           <Card.Body>
             <Card.Title style={styles.title} className="mb-2">
-              Party Name
+              {props.name}
             </Card.Title>
-            <Card.Text> Party Name</Card.Text>
-            <Card.Text> Party Time</Card.Text>
-            <Card.Text> Party Location</Card.Text>
-            <Card.Footer>Attendees: 12</Card.Footer>
-            <Card.Footer style={styles.footer}>
-              <span className="font-weight-bold">Attendees:</span> 12
+            <Card.Text className="my-2 font-weight-bold text-dark">
+              {formatDate(props.date)}
+            </Card.Text>
+            <Card.Text className="my-2 text-dark">{props.time}</Card.Text>
+            <Card.Text className="my-2 text-dark">
+              {props.address.street}
+            </Card.Text>
+            <Card.Footer
+              className="text-dark font-weight-bold"
+              style={styles.footer}
+            >
+              <span className="" style={styles.partyId}>
+                Party ID:
+              </span>{" "}
+              {props._id}
             </Card.Footer>
           </Card.Body>
         </Card>
-      </CardColumns>
+      </Link>
     </Col>
   );
-}
+};
 
 export default PartyDetailCard;
