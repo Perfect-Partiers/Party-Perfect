@@ -4,8 +4,6 @@ import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
 import firebase from "../firebase.js";
-import { useAuth } from "../components/contexts/AuthContext";
-
 
 const styles = {
   button: {
@@ -122,8 +120,9 @@ function Home() {
 
     API.saveParty(partyId, currentUser.uid)
       .then((res) => {
-        console.log("Found the party");
-        console.log(res.data);
+        console.log("Added party to your database!");
+        addAttendee(partyId);
+
         loadParties();
         // Testing 602f11dcae4b1dd724cb55be
       })
@@ -133,7 +132,17 @@ function Home() {
     handleClose();
   };
 
-  // We need to detemrine what we are doing with this. Is it just being added to state?
+  const addAttendee = (partyId) => {
+    let updates = [{ name: currentUser.displayName, email: currentUser.email }];
+
+    API.updatepParty(partyId, updates)
+      .then((res) => {
+        console.log("Added current user as attendee");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>

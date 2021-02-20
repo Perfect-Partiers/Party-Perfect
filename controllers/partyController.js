@@ -108,7 +108,6 @@ module.exports = {
               MAPBOX_TOKEN
           )
           .then((results) => {
-            console.log("====mapbox data====");
             res.json(results.data);
           });
       })

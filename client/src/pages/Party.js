@@ -27,7 +27,7 @@ function Party() {
       .then((res) => {
         setPartyData(res.data);
         console.log(res.data);
-        // getPartyPosition();
+        getPartyPosition();
       })
       .catch((err) => console.log(err));
   };
@@ -47,15 +47,19 @@ function Party() {
     }
   };
 
-  // const getPartyPosition = () => {
-  //   API.getPartyMap(id).then((res) => {
-  //     console.log("getPartyPosition = " + res);
-  //     setPartyPosition({
-  //       lat: parseFloat(res.features[0].geometry.coordinates[1]),
-  //       lon: parseFloat(res.features[0].geometry.coordinates[0]),
-  //     });
-  //   });
-  // };
+  const getPartyPosition = () => {
+    console.log("====getPartyPosition====");
+    API.getMapBoxData(id)
+      .then((res) => {
+        console.log(res.data);
+        setPartyPosition({
+          lat: parseFloat(res.data.features[0].geometry.coordinates[1]),
+          lon: parseFloat(res.data.features[0].geometry.coordinates[0]),
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Container>
       <Row className="justify-content-center">
@@ -63,8 +67,7 @@ function Party() {
       </Row>
       <Row className="justify-content-center">
         <h2 className="mr-3">
-          Date & Time: {formatDate(partyData.date)} at{" "}
-          {partyData.time}
+          Date & Time: {formatDate(partyData.date)} at {partyData.time}
         </h2>
         <h2>Party Code: {partyData._id}</h2>
       </Row>
@@ -99,12 +102,14 @@ function Party() {
           ></AttendeeDetailCard>
         </Col>
         <Col>
-          {/* <LocationCard
-            lat={partyPosition.lat}
-            lon={partyPosition.lon}
-            name={partyData.name}
-            address={partyData.address.street}
-          ></LocationCard> */}
+          <LocationCard
+            lat={partyPosition.lat !== undefined ? partyPosition.lat : 0}
+            lon={partyPosition.lon !== undefined ? partyPosition.lon : 0}
+            name={partyData.name !== undefined ? partyData.name : ""}
+            address={
+              partyData.address !== undefined ? partyData.address.street : ""
+            }
+          ></LocationCard>
         </Col>
       </Row>
     </Container>
