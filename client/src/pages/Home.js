@@ -4,6 +4,8 @@ import PartyDetailCard from "../components/PartyDetailCard";
 import PastAccordion from "../components/PastAccordion";
 import API from "../utils/API";
 import { useAuth } from "../components/contexts/AuthContext";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 import firebase from "../firebase.js";
 
@@ -90,7 +92,7 @@ function Home() {
         console.log(err);
       });
   };
-
+console.log(parties)
   // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
   const checkUser = (user) => {
     API.checkUser(user.uid)
@@ -145,6 +147,22 @@ function Home() {
       });
   };
 
+  let calendarParties = [];
+
+  parties.map(
+    (party) =>
+      (calendarParties.push({
+        title: party.name,
+        date: party.date,
+        id: party._id
+      }))
+  );
+
+  const handleEventClick = (event) => {
+    console.log(event)
+    window.location.href = "/party/" + event
+  }
+  
   return (
     <Container>
       <Row className="mt-5 mb-3 justify-content-md-center">
@@ -193,11 +211,19 @@ function Home() {
           <PartyDetailCard key={party._id} {...party} />
         ))}
       </Row>
-      <Row style={styles.heading}>
+      {/* <Row style={styles.heading}>
         <h2>Past Events</h2>
       </Row>
       <Row className="mb-5">
         <PastAccordion parties={pastParties}></PastAccordion>
+      </Row> */}
+      <Row>
+      <FullCalendar
+      plugins={[dayGridPlugin]}
+      initialView="dayGridMonth"
+          events={calendarParties}
+          eventClick={event => handleEventClick(event.event._def.publicId)}
+    />
       </Row>
     </Container>
   );
