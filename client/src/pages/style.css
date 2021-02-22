@@ -1,0 +1,24 @@
+.homeButton {
+  transition: all 0.2s ease-in-out;
+}
+
+.homeButton:hover {
+  transform: scale(1.1);
+}
+
+.fc-scrollgrid {
+  background-color: #ffffff;
+}
+
+.fc-today-button {
+  background-color: #ee6a59 !important;
+  border-color: #ee6a59 !important;
+  font-weight: bold;
+  margin-left: 5px !important;
+}
+
+.fc-prev-button,
+.fc-next-button {
+  background-color: #99658a !important;
+  border-color: #99658a !important;
+}
