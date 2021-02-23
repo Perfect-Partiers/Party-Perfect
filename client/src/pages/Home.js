@@ -6,49 +6,48 @@ import API from "../utils/API";
 import { useAuth } from "../components/contexts/AuthContext";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-
+import "./style.css";
 import firebase from "../firebase.js";
 
-
 const styles = {
-     button: {
-          backgroundColor: "#99658A",
-          borderColor: "#99658A",
-          fontWeight: "bold",
-          fontSize: "18px",
-          width: "200px",
-          height: "45px",
-     },
+  button: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    width: "200px",
+    height: "45px",
+  },
 
-     heading: {
-          marginTop: "40px",
-     },
-     modal: {
-          backgroundColor: "#FFFFF0",
-     },
+  heading: {
+    marginTop: "40px",
+  },
+  modal: {
+    backgroundColor: "#FFFFF0",
+  },
 
-     modalTitle: {
-          color: "#ffffff",
-          fontWeight: "bold",
-     },
+  modalTitle: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  },
 
-     modalHead: {
-          backgroundColor: "#ee6a59",
-     },
+  modalHead: {
+    backgroundColor: "#ee6a59",
+  },
 
-     formControl: {
-          width: "300px",
-          margin: "auto",
-          marginTop: "20px",
-     },
+  formControl: {
+    width: "300px",
+    margin: "auto",
+    marginTop: "20px",
+  },
 
-     modalButton: {
-          backgroundColor: "#99658A",
-          borderColor: "#99658A",
-          fontWeight: "bold",
-          fontSize: "18px",
-          marginTop: "20px",
-     },
+  modalButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    marginTop: "20px",
+  },
 };
 
 function Home() {
@@ -92,7 +91,7 @@ function Home() {
         console.log(err);
       });
   };
-console.log(parties)
+  console.log(parties);
   // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
   const checkUser = (user) => {
     API.checkUser(user.uid)
@@ -149,30 +148,37 @@ console.log(parties)
 
   let calendarParties = [];
 
-  parties.map(
-    (party) =>
-      (calendarParties.push({
-        title: party.name,
-        date: party.date,
-        id: party._id
-      }))
+  parties.map((party) =>
+    calendarParties.push({
+      title: party.name,
+      date: party.date,
+      id: party._id,
+    })
   );
 
   const handleEventClick = (event) => {
-    console.log(event)
-    window.location.href = "/party/" + event
-  }
-  
+    console.log(event);
+    window.location.href = "/party/" + event;
+  };
+
   return (
     <Container>
       <Row className="mt-5 mb-3 justify-content-md-center">
         <h1>Welcome Perfect Partier {currentUser.displayName}!</h1>
       </Row>
       <Row className="justify-content-md-center">
-        <Button href="/partycreate" style={styles.button} className="mr-4">
+        <Button
+          href="/partycreate"
+          style={styles.button}
+          className="homeButton mr-4"
+        >
           Create a Party
         </Button>
-        <Button href="#" style={styles.button} onClick={handleShow}>
+        <Button
+          className="homeButton"
+          style={styles.button}
+          onClick={handleShow}
+        >
           Join a Party
         </Button>
 
@@ -203,14 +209,16 @@ console.log(parties)
           </Modal.Body>
         </Modal>
       </Row>
-      <Row style={styles.heading}>
-        <h2>Upcoming</h2>
-      </Row>
-      <Row className="justify-content-left">
-        {parties.map((party) => (
-          <PartyDetailCard key={party._id} {...party} />
-        ))}
-      </Row>
+      <div className="mb-2">
+        <Row style={styles.heading}>
+          <h2>Upcoming</h2>
+        </Row>
+        <Row className="justify-content-left">
+          {parties.map((party) => (
+            <PartyDetailCard key={party._id} {...party} />
+          ))}
+        </Row>
+      </div>
       {/* <Row style={styles.heading}>
         <h2>Past Events</h2>
       </Row>
@@ -218,12 +226,14 @@ console.log(parties)
         <PastAccordion parties={pastParties}></PastAccordion>
       </Row> */}
       <Row>
-      <FullCalendar
-      plugins={[dayGridPlugin]}
-      initialView="dayGridMonth"
-          events={calendarParties}
-          eventClick={event => handleEventClick(event.event._def.publicId)}
-    />
+        <div className="my-5 mx-auto text-align-center">
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            events={calendarParties}
+            eventClick={(event) => handleEventClick(event.event._def.publicId)}
+          />
+        </div>
       </Row>
     </Container>
   );

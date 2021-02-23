@@ -18,7 +18,8 @@ const styles = {
 
   footer: {
     borderRadius: "10px",
-    backgroundColor: "#fffff0",
+    // backgroundColor: "#fffff0",
+    backgroundColor: "#ffffff",
   },
 
   partyId: {
