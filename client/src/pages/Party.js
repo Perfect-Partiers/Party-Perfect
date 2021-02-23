@@ -75,17 +75,14 @@ function Party() {
         <Col>
           <ScheduleDetailCard
             schedule={partyData.schedule}
-            // schedule={[
-            //   { activity: "dancing", time: "2:00AM" },
-            //   { activity: "running", time: "1:00PM" },
-            // ]}
+            creator={partyData.creator}
             partyId={partyData._id}
           ></ScheduleDetailCard>
         </Col>
         <Col>
           <SupplyDetailCard
             supplies={partyData.supplies}
-            // supplies={[{ supply: "pizza" }, { supply: "candy" }]}
+            creator={partyData.creator}
             partyId={partyData._id}
           ></SupplyDetailCard>
         </Col>
@@ -94,10 +91,7 @@ function Party() {
         <Col>
           <AttendeeDetailCard
             attendees={partyData.attendees}
-            // attendees={[
-            //   { name: "Padridg", email: "pad@ridg.com" },
-            //   { name: "Brigid", email: "bri@gid.com" },
-            // ]}
+            creator={partyData.creator}
             partyId={partyData._id}
           ></AttendeeDetailCard>
         </Col>

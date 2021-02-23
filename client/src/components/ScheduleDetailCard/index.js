@@ -3,6 +3,7 @@ import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   SASDetail: {
@@ -49,6 +50,7 @@ const styles = {
 function ScheduleDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
+  const { currentUser } = useAuth();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -127,7 +129,7 @@ function ScheduleDetailCard(props) {
             <tr>
               <th>Activity</th>
               <th>Time</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? (<th>Remove</th>) : ""}
             </tr>
           </thead>
           <tbody>
@@ -141,24 +143,26 @@ function ScheduleDetailCard(props) {
                   <tr key={activity._id}>
                     <td>{activity.activity}</td>
                     <td>{activity.time}</td>
-                    <td>
-                      <Button
-                        style={styles.tButton}
-                        value={activity._id}
-                        onClick={(event) => handleDeleteBtn(event, activity)}
-                      >
+                    
+                    {currentUser.uid === props.creator ? (<td><Button
+                                style={styles.tButton}
+                                value={activity._id}
+                                onClick={(event) => 
+                                handleDeleteBtn(event, activity)}>
                         <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                      </Button></td>) : "" } 
+                    
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add to Schedule
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <Button href="#" style={styles.button} onClick={handleShow}>
+            Add to Schedule
+          </Button>
+        ) : ""}
         <Modal
           show={show}
           onHide={handleClose}

@@ -29,6 +29,7 @@
     "firebase": "^8.2.7",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
+    "radium": "^0.26.1",
     "react-map-gl": "^6.1.7"
   }
 }
