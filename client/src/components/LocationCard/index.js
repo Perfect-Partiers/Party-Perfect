@@ -6,6 +6,11 @@ const styles = {
   locationDetail: {
     backgroundColor: "#8dc6bf",
   },
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   width: "300px",
   height: "300px",
   markerBtn: {
@@ -66,50 +71,54 @@ const LocationCard = (props) => {
   }, [viewport.zoom]);
 
   return (
-    <Card style={styles.locationDetail}>
+    <Card style={styles.locationDetail} className="mb-4">
       <Card.Body>
-        <Card.Title>Location</Card.Title>
-        <h4>{props.address}</h4>
-        <div>
-          <ReactMapGl
-            {...viewport}
-            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            onViewportChange={(viewport) => {
-              setViewport(viewport);
-            }}
-          >
-            <Marker
-              latitude={staticMarker.latitude}
-              longitude={staticMarker.longitude}
+        <Card.Title style={styles.title} className="mb-3">
+          Location
+        </Card.Title>
+        <center>
+          <h4>{props.address}</h4>
+          <div>
+            <ReactMapGl
+              {...viewport}
+              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              onViewportChange={(viewport) => {
+                setViewport(viewport);
+              }}
             >
-              <button
-                style={styles.markerBtn}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMarkerSelect(staticMarker);
-                }}
-              >
-                <img src="/favicon-16x16.png"></img>
-              </button>
-            </Marker>
-            {markerSelect ? (
-              <Popup
+              <Marker
                 latitude={staticMarker.latitude}
                 longitude={staticMarker.longitude}
-                onClose={() => {
-                  setMarkerSelect(null);
-                }}
               >
-                <div>
-                  <small>{staticMarker.name}</small>
-                  <br />
-                  <small>{staticMarker.address}</small>
-                </div>
-              </Popup>
-            ) : null}
-          </ReactMapGl>
-        </div>
+                <button
+                  style={styles.markerBtn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMarkerSelect(staticMarker);
+                  }}
+                >
+                  <img src="/favicon-16x16.png"></img>
+                </button>
+              </Marker>
+              {markerSelect ? (
+                <Popup
+                  latitude={staticMarker.latitude}
+                  longitude={staticMarker.longitude}
+                  onClose={() => {
+                    setMarkerSelect(null);
+                  }}
+                >
+                  <div>
+                    <small>{staticMarker.name}</small>
+                    <br />
+                    <small>{staticMarker.address}</small>
+                  </div>
+                </Popup>
+              ) : null}
+            </ReactMapGl>
+          </div>
+        </center>
       </Card.Body>
     </Card>
   );

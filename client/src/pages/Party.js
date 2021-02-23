@@ -62,10 +62,10 @@ function Party() {
 
   return (
     <Container>
-      <Row className="justify-content-center">
+      <Row className="justify-content-center my-3">
         <h1>{partyData.name}</h1>
       </Row>
-      <Row className="justify-content-center">
+      <Row className="justify-content-center mb-4">
         <h2 className="mr-3">
           Date & Time: {formatDate(partyData.date)} at {partyData.time}
         </h2>

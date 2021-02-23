@@ -14,6 +14,9 @@ const styles = {
   labelForm: {
     fontSize: "18px",
   },
+  control: {
+    width: "575px",
+  },
   button: {
     backgroundColor: "#99658a",
     borderColor: "#99658A",
@@ -84,6 +87,8 @@ function PartyCreationCard(props) {
                   </Form.Label>
                   <Col sm="9">
                     <Form.Control
+                      style={styles.control}
+                      className="float-left"
                       name="name"
                       type="text"
                       placeholder="Enter party name"
@@ -107,6 +112,8 @@ function PartyCreationCard(props) {
                   </Form.Label>
                   <Col sm="9">
                     <Form.Control
+                      style={styles.control}
+                      className="float-left"
                       name="date"
                       type="date"
                       onChange={handleInputChange}
@@ -129,6 +136,8 @@ function PartyCreationCard(props) {
                   </Form.Label>
                   <Col sm="9">
                     <Form.Control
+                      style={styles.control}
+                      className="float-left"
                       name="time"
                       type="time"
                       onChange={handleInputChange}
@@ -151,6 +160,8 @@ function PartyCreationCard(props) {
                   </Form.Label>
                   <Col sm="9">
                     <Form.Control
+                      style={styles.control}
+                      className="float-left"
                       name="address"
                       type="text"
                       placeholder="Enter street address"
@@ -174,6 +185,8 @@ function PartyCreationCard(props) {
                   </Form.Label>
                   <Col sm="9">
                     <Form.Control
+                      style={styles.control}
+                      className="float-left"
                       name="zip"
                       type="text"
                       placeholder="Enter street address"
