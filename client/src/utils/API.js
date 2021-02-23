@@ -32,12 +32,10 @@ export default {
   },
   createUser: function (userData) {
     console.log("====API.createUser====");
+    console.log(userData)
     return axios.post("/api/users/signup", userData);
   },
   getMapBoxData: function (id) {
     return axios.get("/api/parties/mapbox/" + id);
-  },
-  removePartyItem: function (id, updates) {
-    return axios.put("/api/parties/items" + id, updates);
   },
 };
