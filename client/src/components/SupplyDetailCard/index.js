@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Table,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
@@ -63,7 +55,7 @@ const styles = {
 };
 
 function SupplyDetailCard(props) {
-  console.log(props.supplies);
+  // console.log(props.supplies);
 
   const [show, setShow] = useState(false);
 
@@ -96,9 +88,19 @@ function SupplyDetailCard(props) {
     handleClose();
   };
 
-  const handleDeleteBtn = (event, id) => {
-    console.log(id)
-  }
+  const handleDeleteBtn = (event, id, supply) => {
+    console.log(id);
+    console.log(event.target);
+    console.log(supply);
+    API.removePartyItem(props.partyId, {
+      supplies: [
+        {
+          supply: supply,
+          _id: id,
+        },
+      ],
+    });
+  };
 
   return (
     <Card style={styles.SASDetail}>
@@ -125,7 +127,14 @@ function SupplyDetailCard(props) {
                       <Button
                         style={styles.tButton}
                         value={supplyItem._id}
-                        onClick={event => handleDeleteBtn(event, supplyItem._id)}>
+                        onClick={(event) =>
+                          handleDeleteBtn(
+                            event,
+                            supplyItem._id,
+                            supplyItem.supply
+                          )
+                        }
+                      >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                     </td>

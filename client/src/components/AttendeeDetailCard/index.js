@@ -78,6 +78,21 @@ function AttendeeDetailCard(props) {
     handleClose();
   };
 
+  const handleDeleteBtn = (event, attendee) => {
+    // console.log(id);
+    console.log(event.target);
+    console.log(attendee);
+    API.removePartyItem(props.partyId, {
+      attendees: [
+        {
+          name: attendee.name,
+          email: attendee.email,
+          _id: attendee._id,
+        },
+      ],
+    });
+  };
+    
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
@@ -102,7 +117,11 @@ function AttendeeDetailCard(props) {
                     <td>{attendee.name}</td>
                     <td>{attendee.email}</td>
                     <td>
-                      <Button style={styles.tButton} value={attendee._id}>
+                            <Button
+                                style={styles.tButton}
+                                value={attendee._id}
+                                onClick={(event) => 
+                                handleDeleteBtn(event, attendee)}>
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                     </td>
