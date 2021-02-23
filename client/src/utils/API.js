@@ -32,6 +32,7 @@ export default {
   },
   createUser: function (userData) {
     console.log("====API.createUser====");
+    console.log(userData)
     return axios.post("/api/users/signup", userData);
   },
   getMapBoxData: function (id) {
