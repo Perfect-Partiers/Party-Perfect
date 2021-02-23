@@ -3,15 +3,19 @@ const axios = require("axios");
 // import axios from "axios"; // this doesn't work here
 require("dotenv").config();
 const BASEURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_CONTROLLER_TOKEN;
 
 // Defining methods for the partyController
 module.exports = {
   findAllParties: (req, res) => {
     console.log("====partyController.findAllParties====");
     db.User.findOne({ uid: req.params.id })
-      .populate("parties")
-      .sort({ date: -1 })
+      .populate(
+        "parties",
+        "_id name date creator time address attendees supplies schedule",
+        null,
+        { sort: { date: 1 } }
+      )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -62,34 +66,34 @@ module.exports = {
   updateParty: (req, res) => {
     console.log("====partyController.updateParty====");
     let updates = req.body;
-    db.Party.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        $push: {
-          ...updates,
+    let itemKey = Object.keys(req.body)[0];
+    let itemId = req.body[itemKey][0]._id;
+    if (itemId === undefined) {
+      db.Party.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: {
+            ...updates,
+          },
         },
-      },
-      {
-        new: true,
-      }
-    )
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-  updatePartyItems: (req, res) => {
-    console.log("====partyController.updatePartyItems====");
-    let itemKey = req.body;
-    let itemId = req.body.id;
-    db.Party.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        $pull: {
-          [itemKey]: itemId,
-        },
-      }
-    )
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
+        {
+          new: true,
+        }
+      )
+        .then((dbModel) => res.json(dbModel))
+        .catch((err) => res.status(422).json(err));
+    } else {
+      db.Party.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: {
+            [itemKey]: { _id: itemId },
+          },
+        }
+      )
+        .then((dbModel) => res.json(dbModel))
+        .catch((err) => res.status(422).json(err));
+    }
   },
   removeParty: (req, res) => {
     console.log("====partyController.removeParty====");
