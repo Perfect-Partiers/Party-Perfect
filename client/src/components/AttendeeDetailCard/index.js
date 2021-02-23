@@ -3,6 +3,7 @@ import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   SASDetail: {
@@ -49,7 +50,8 @@ const styles = {
 function AttendeeDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
-
+  const { currentUser } = useAuth();
+    
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -82,7 +84,7 @@ function AttendeeDetailCard(props) {
     // console.log(id);
     console.log(event.target);
     console.log(attendee);
-    API.removePartyItem(props.partyId, {
+    API.updateParty(props.partyId, {
       attendees: [
         {
           name: attendee.name,
@@ -102,7 +104,7 @@ function AttendeeDetailCard(props) {
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? (<th>Remove</th>) : ""}
             </tr>
           </thead>
           <tbody>
@@ -116,24 +118,24 @@ function AttendeeDetailCard(props) {
                   <tr key={attendee._id}>
                     <td>{attendee.name}</td>
                     <td>{attendee.email}</td>
-                    <td>
-                            <Button
+                          {currentUser.uid === props.creator ? (<td><Button
                                 style={styles.tButton}
                                 value={attendee._id}
                                 onClick={(event) => 
                                 handleDeleteBtn(event, attendee)}>
                         <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                      </Button></td>) : "" }  
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Attendee
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <Button href="#" style={styles.button} onClick={handleShow}>
+            Add Attendee
+          </Button>
+        ) : ""}
         <Modal
           show={show}
           onHide={handleClose}

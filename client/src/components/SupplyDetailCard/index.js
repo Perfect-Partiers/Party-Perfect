@@ -3,6 +3,7 @@ import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   SASDetail: {
@@ -56,7 +57,7 @@ const styles = {
 
 function SupplyDetailCard(props) {
   // console.log(props.supplies);
-
+  const { currentUser } = useAuth();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -92,7 +93,7 @@ function SupplyDetailCard(props) {
     console.log(id);
     console.log(event.target);
     console.log(supply);
-    API.removePartyItem(props.partyId, {
+    API.updateParty(props.partyId, {
       supplies: [
         {
           supply: supply,
@@ -110,7 +111,7 @@ function SupplyDetailCard(props) {
           <thead>
             <tr>
               <th>Supply</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? (<th>Remove</th>) : ""}
             </tr>
           </thead>
           <tbody>
@@ -123,30 +124,25 @@ function SupplyDetailCard(props) {
                 return (
                   <tr key={supplyItem._id}>
                     <td>{supplyItem.supply} </td>
-                    <td>
-                      <Button
-                        style={styles.tButton}
-                        value={supplyItem._id}
-                        onClick={(event) =>
-                          handleDeleteBtn(
-                            event,
-                            supplyItem._id,
-                            supplyItem.supply
-                          )
-                        }
-                      >
+                    {currentUser.uid === props.creator ? (<td><Button
+                                style={styles.tButton}
+                                value={supplyItem._id}
+                                onClick={(event) => 
+                                handleDeleteBtn(event, supplyItem)}>
                         <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                      </Button></td>) : "" } 
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <Button href="#" style={styles.button} onClick={handleShow}>
+            Add Supply
+          </Button>
+        ) : ""}
+
         <Modal
           show={show}
           onHide={handleClose}

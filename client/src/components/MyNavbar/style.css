@@ -23,11 +23,15 @@
 .logout {
   position: absolute;
   right: 0;
-  margin-right: 20px;
+  margin-right: 25px;
 }
 
 .button {
-  background-color: #8dc6bf !important;
-  border-color: #8dc6bf !important;
+  background-color: transparent !important;
   width: 75px;
+  color: #ffffff;
+}
+
+.button:hover {
+  color: #ffffff;
 }
