@@ -3,7 +3,7 @@ const axios = require("axios");
 // import axios from "axios"; // this doesn't work here
 require("dotenv").config();
 const BASEURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_CONTROLLER_TOKEN;
 
 // Defining methods for the partyController
 module.exports = {
