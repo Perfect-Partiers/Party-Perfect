@@ -149,6 +149,13 @@ function Home() {
     })
   );
 
+  pastParties.map((party) =>
+    calendarParties.push({
+      title: party.name,
+      date: party.date,
+      id: party._id,
+    })
+  );
   const handleEventClick = (event) => {
     window.location.href = "/party/" + event;
   };
