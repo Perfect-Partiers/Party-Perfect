@@ -51,9 +51,10 @@ function AttendeeDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
   const { currentUser } = useAuth();
-    
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -78,6 +79,7 @@ function AttendeeDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const handleDeleteBtn = (event, attendee) => {
@@ -93,8 +95,9 @@ function AttendeeDetailCard(props) {
         },
       ],
     });
+    props.getPartyData();
   };
-    
+
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
@@ -104,7 +107,7 @@ function AttendeeDetailCard(props) {
             <tr>
               <th>Name</th>
               <th>Email</th>
-              {currentUser.uid === props.creator ? (<th>Remove</th>) : ""}
+              {currentUser.uid === props.creator ? <th>Remove</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -118,13 +121,19 @@ function AttendeeDetailCard(props) {
                   <tr key={attendee._id}>
                     <td>{attendee.name}</td>
                     <td>{attendee.email}</td>
-                          {currentUser.uid === props.creator ? (<td><Button
-                                style={styles.tButton}
-                                value={attendee._id}
-                                onClick={(event) => 
-                                handleDeleteBtn(event, attendee)}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button></td>) : "" }  
+                    {currentUser.uid === props.creator ? (
+                      <td>
+                        <Button
+                          style={styles.tButton}
+                          value={attendee._id}
+                          onClick={(event) => handleDeleteBtn(event, attendee)}
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 );
               })
@@ -135,7 +144,9 @@ function AttendeeDetailCard(props) {
           <Button href="#" style={styles.button} onClick={handleShow}>
             Add Attendee
           </Button>
-        ) : ""}
+        ) : (
+          ""
+        )}
         <Modal
           show={show}
           onHide={handleClose}
