@@ -5,6 +5,9 @@ const db = require("../models");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/partyperfect");
 
+const englishBulldog =
+  "https://images.unsplash.com/photo-1522429143291-e47cb0e3a596?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80";
+
 const partySeed = [
   {
     name: "Someone's Birthday Party!",
@@ -24,12 +27,14 @@ const partySeed = [
       { supply: "protein" },
       { supply: "veggies" },
     ],
+    creator: "Seed Creator seedDB.js",
     schedule: [
       { time: "4:00 P.M.", activity: "Play first game!" },
       { time: "5:00 P.M.", activity: "Eat!" },
       { time: "6:00 P.M.", activity: "Play second game!" },
       { time: "7:00 P.M.", activity: "Open presents!" },
     ],
+    image: englishBulldog,
   },
   {
     name: "Mardi Gras Dinner!",
@@ -55,6 +60,7 @@ const partySeed = [
       { time: "7:30 P.M.", activity: "Eat again!" },
       { time: "8:00 P.M.", activity: "Play second game!" },
     ],
+    image: englishBulldog,
   },
   {
     name: "Spring Celebration",
@@ -86,6 +92,7 @@ const partySeed = [
       { time: "6:00 P.M.", activity: "Boat tour!" },
       { time: "7:30 P.M.", activity: "Dinner!" },
     ],
+    image: englishBulldog,
   },
   {
     name: "Fun at the Waterfront!",
@@ -114,6 +121,7 @@ const partySeed = [
       { time: "5:00 P.M.", activity: "Museum!" },
       { time: "7:30 P.M.", activity: "Dinner!" },
     ],
+    image: englishBulldog,
   },
   {
     name: "Mariners Game!",
@@ -142,6 +150,7 @@ const partySeed = [
       { time: "7:10 P.M.", activity: "Game time!" },
       { time: "10:00 P.M.", activity: "More drinks!" },
     ],
+    image: englishBulldog,
   },
   {
     name: "Seahawks Game!",
@@ -170,6 +179,7 @@ const partySeed = [
       { time: "5:00 P.M.", activity: "Dinner!" },
       { time: "7:30 P.M.", activity: "More drinks!" },
     ],
+    image: englishBulldog,
   },
 ];
 

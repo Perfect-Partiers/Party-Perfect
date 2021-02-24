@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Table,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
+import "./style.css";
 
 const styles = {
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   SASDetail: {
     backgroundColor: "#8dc6bf",
   },
@@ -60,11 +59,18 @@ const styles = {
     fontWeight: "bold",
     fontSize: "18px",
   },
+  table: {
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+  },
+  tableHead: {
+    color: "#ee6a59",
+  },
 };
 
 function SupplyDetailCard(props) {
-  console.log(props.supplies);
-
+  // console.log(props.supplies);
+  const { currentUser } = useAuth();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -94,21 +100,33 @@ function SupplyDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
-  const handleDeleteBtn = (event, id) => {
-    console.log(id)
-  }
+  const handleDeleteBtn = (event, id, supply) => {
+    console.log(id);
+    console.log(event.target);
+    console.log(supply);
+    API.updateParty(props.partyId, {
+      supplies: [
+        {
+          supply: supply,
+          _id: id,
+        },
+      ],
+    });
+    props.getPartyData();
+  };
 
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
-        <Table responsive>
-          <thead>
+        <Card.Title style={styles.title}>Supplies</Card.Title>
+        <Table responsive style={styles.table}>
+          <thead style={styles.tableHead}>
             <tr>
               <th>Supply</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? <th>Remove</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -121,23 +139,43 @@ function SupplyDetailCard(props) {
                 return (
                   <tr key={supplyItem._id}>
                     <td>{supplyItem.supply} </td>
-                    <td>
-                      <Button
-                        style={styles.tButton}
-                        value={supplyItem._id}
-                        onClick={event => handleDeleteBtn(event, supplyItem._id)}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                    {currentUser.uid === props.creator ? (
+                      <td>
+                        <Button
+                          style={styles.tButton}
+                          value={supplyItem._id}
+                          onClick={(event) =>
+                            handleDeleteBtn(event, supplyItem)
+                          }
+                          className="hoverButton"
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Supply
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <center>
+            <Button
+              href="#"
+              style={styles.button}
+              onClick={handleShow}
+              className="hoverButton"
+            >
+              Add Supply
+            </Button>
+          </center>
+        ) : (
+          ""
+        )}
+
         <Modal
           show={show}
           onHide={handleClose}
@@ -158,7 +196,11 @@ function SupplyDetailCard(props) {
                   style={styles.formControl}
                   onChange={handleInputChange}
                 ></Form.Control>
-                <Button style={styles.modalButton} type="submit">
+                <Button
+                  style={styles.modalButton}
+                  type="submit"
+                  className="hoverButton"
+                >
                   Add Supply
                 </Button>
               </Form.Group>

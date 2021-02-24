@@ -1,0 +1,8 @@
+.hoverButton {
+  transition: all 0.2s ease-in-out;
+}
+
+.hoverButton:hover {
+  transform: scale(1.1);
+  color: #ffffff !important;
+}

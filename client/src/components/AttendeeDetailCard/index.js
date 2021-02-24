@@ -3,8 +3,15 @@ import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
+import "./style.css";
 
 const styles = {
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   SASDetail: {
     backgroundColor: "#8dc6bf",
   },
@@ -44,11 +51,19 @@ const styles = {
     fontWeight: "bold",
     fontSize: "18px",
   },
+  table: {
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+  },
+  tableHead: {
+    color: "#ee6a59",
+  },
 };
 
 function AttendeeDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
+  const { currentUser } = useAuth();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -76,18 +91,35 @@ function AttendeeDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
+  };
+
+  const handleDeleteBtn = (event, attendee) => {
+    // console.log(id);
+    console.log(event.target);
+    console.log(attendee);
+    API.updateParty(props.partyId, {
+      attendees: [
+        {
+          name: attendee.name,
+          email: attendee.email,
+          _id: attendee._id,
+        },
+      ],
+    });
+    props.getPartyData();
   };
 
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Attendees</Card.Title>
-        <Table responsive>
-          <thead>
+        <Card.Title style={styles.title}>Attendees</Card.Title>
+        <Table responsive style={styles.table}>
+          <thead style={styles.tableHead}>
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? <th>Remove</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -99,22 +131,42 @@ function AttendeeDetailCard(props) {
               props.attendees.map((attendee) => {
                 return (
                   <tr key={attendee._id}>
-                    <td>{attendee.name}</td>
+                    <td className="font-weight-bold">{attendee.name}</td>
                     <td>{attendee.email}</td>
-                    <td>
-                      <Button style={styles.tButton} value={attendee._id}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                    {currentUser.uid === props.creator ? (
+                      <td>
+                        <Button
+                          style={styles.tButton}
+                          value={attendee._id}
+                          onClick={(event) => handleDeleteBtn(event, attendee)}
+                          className="hoverButton"
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add Attendee
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <center>
+            <Button
+              href="#"
+              style={styles.button}
+              onClick={handleShow}
+              className="hoverButton"
+            >
+              Add Attendee
+            </Button>
+          </center>
+        ) : (
+          ""
+        )}
         <Modal
           show={show}
           onHide={handleClose}
@@ -142,7 +194,12 @@ function AttendeeDetailCard(props) {
                   onChange={handleInputChange}
                   name="email"
                 ></Form.Control>
-                <Button style={styles.modalButton} type="submit">
+
+                <Button
+                  style={styles.modalButton}
+                  type="submit"
+                  className="hoverButton"
+                >
                   Add Attendee
                 </Button>
               </Form.Group>

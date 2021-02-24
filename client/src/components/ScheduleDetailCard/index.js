@@ -3,8 +3,15 @@ import { Card, Table, Button, Modal, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import { useAuth } from "../contexts/AuthContext";
+import "./style.css";
 
 const styles = {
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   SASDetail: {
     backgroundColor: "#8dc6bf",
   },
@@ -44,11 +51,20 @@ const styles = {
     fontWeight: "bold",
     fontSize: "18px",
   },
+
+  table: {
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+  },
+  tableHead: {
+    color: "#ee6a59",
+  },
 };
 
 function ScheduleDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
+  const { currentUser } = useAuth();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -93,6 +109,7 @@ function ScheduleDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const getFormattedTime = (fourDigitTime) => {
@@ -104,16 +121,31 @@ function ScheduleDetailCard(props) {
     return hours + minutes + amPm;
   };
 
+  const handleDeleteBtn = (event, activity) => {
+    console.log(event.target);
+    console.log("hello?");
+    API.updateParty(props.partyId, {
+      schedule: [
+        {
+          time: activity.time,
+          activity: activity.activity,
+          _id: activity._id,
+        },
+      ],
+    });
+    props.getPartyData();
+  };
+
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Schedule</Card.Title>
-        <Table responsive>
-          <thead>
+        <Card.Title style={styles.title}>Schedule</Card.Title>
+        <Table responsive style={styles.table}>
+          <thead style={styles.tableHead}>
             <tr>
               <th>Activity</th>
               <th>Time</th>
-              <th>Remove</th>
+              {currentUser.uid === props.creator ? <th>Remove</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -122,25 +154,46 @@ function ScheduleDetailCard(props) {
                 <td>Press the add to schedule button to add activities</td>
               </tr>
             ) : (
-              activitySort.map((event) => {
+              activitySort.map((activity) => {
                 return (
-                  <tr key={event._id}>
-                    <td>{event.activity}</td>
-                    <td>{event.time}</td>
-                    <td>
-                      <Button style={styles.tButton} value={event._id}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </td>
+                  <tr key={activity._id}>
+                    <td className="font-weight-bold">{activity.activity}</td>
+                    <td>{activity.time}</td>
+
+                    {currentUser.uid === props.creator ? (
+                      <td>
+                        <Button
+                          style={styles.tButton}
+                          value={activity._id}
+                          onClick={(event) => handleDeleteBtn(event, activity)}
+                          className="hoverButton"
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 );
               })
             )}
           </tbody>
         </Table>
-        <Button href="#" style={styles.button} onClick={handleShow}>
-          Add to Schedule
-        </Button>
+        {currentUser.uid === props.creator ? (
+          <center>
+            <Button
+              href="#"
+              style={styles.button}
+              onClick={handleShow}
+              className="hoverButton"
+            >
+              Add to Schedule
+            </Button>
+          </center>
+        ) : (
+          ""
+        )}
         <Modal
           show={show}
           onHide={handleClose}
@@ -168,7 +221,11 @@ function ScheduleDetailCard(props) {
                   onChange={handleInputChange}
                   name="time"
                 ></Form.Control>
-                <Button style={styles.modalButton} type="submit">
+                <Button
+                  style={styles.modalButton}
+                  type="submit"
+                  className="hoverButton"
+                >
                   Add Activity
                 </Button>
               </Form.Group>
