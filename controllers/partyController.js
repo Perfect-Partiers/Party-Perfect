@@ -8,7 +8,6 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_CONTROLLER_TOKEN;
 // Defining methods for the partyController
 module.exports = {
   findAllParties: (req, res) => {
-    console.log("====partyController.findAllParties====");
     db.User.findOne({ uid: req.params.id })
       .populate(
         "parties",
@@ -20,13 +19,11 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   findPartyById: (req, res) => {
-    console.log("====partyController.findPartyById====");
     db.Party.findById(req.params.id)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   createParty: (req, res) => {
-    console.log(req.body);
     let firebaseUid = req.params.id;
     db.Party.create(req.body)
       .then(({ _id }) =>
@@ -46,7 +43,6 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   saveParty: (req, res) => {
-    console.log("====partyController.saveParty====");
     let partyId = req.params.id;
     let firebaseUid = req.params.uid;
     db.User.findOneAndUpdate(
@@ -64,7 +60,6 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   updateParty: (req, res) => {
-    console.log("====partyController.updateParty====");
     let updates = req.body;
     let itemKey = Object.keys(req.body)[0];
     let itemId = req.body[itemKey][0]._id;
@@ -96,7 +91,6 @@ module.exports = {
     }
   },
   removeParty: (req, res) => {
-    console.log("====partyController.removeParty====");
     let partyId = req.params.id;
     let firebaseUid = req.params.uid;
     db.Party.findById({ _id: partyId })
@@ -114,7 +108,6 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   getMapBoxData: (req, res) => {
-    console.log("====partyController.getMapBoxData====");
     db.Party.findById({ _id: req.params.id })
       .then(({ address }) => {
         axios

@@ -12,13 +12,10 @@ const styles = {
 
 function PartyCreate() {
   const { currentUser } = useAuth();
-  // console.log(currentUser.uid);
 
   const makeParty = (formObject) => {
-    console.log(currentUser.uid);
     formObject.uid = currentUser.uid;
     formObject.time = getFormattedTime(formObject.time)
-    console.log(formObject);
     API.createParty({
       name: formObject.name,
       date: formObject.date.toString(),
