@@ -4,8 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
 import { useAuth } from "../contexts/AuthContext";
+import "./style.css";
 
 const styles = {
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   SASDetail: {
     backgroundColor: "#8dc6bf",
   },
@@ -45,16 +51,22 @@ const styles = {
     fontWeight: "bold",
     fontSize: "18px",
   },
+  table: {
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+  },
+  tableHead: {
+    color: "#ee6a59",
+  },
 };
 
 function AttendeeDetailCard(props) {
   const [show, setShow] = useState(false);
   const [formObject, setFormObject] = useState({});
   const { currentUser } = useAuth();
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -101,9 +113,9 @@ function AttendeeDetailCard(props) {
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Attendees</Card.Title>
-        <Table responsive>
-          <thead>
+        <Card.Title style={styles.title}>Attendees</Card.Title>
+        <Table responsive style={styles.table}>
+          <thead style={styles.tableHead}>
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -119,7 +131,7 @@ function AttendeeDetailCard(props) {
               props.attendees.map((attendee) => {
                 return (
                   <tr key={attendee._id}>
-                    <td>{attendee.name}</td>
+                    <td className="font-weight-bold">{attendee.name}</td>
                     <td>{attendee.email}</td>
                     {currentUser.uid === props.creator ? (
                       <td>
@@ -127,6 +139,7 @@ function AttendeeDetailCard(props) {
                           style={styles.tButton}
                           value={attendee._id}
                           onClick={(event) => handleDeleteBtn(event, attendee)}
+                          className="hoverButton"
                         >
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
@@ -141,9 +154,16 @@ function AttendeeDetailCard(props) {
           </tbody>
         </Table>
         {currentUser.uid === props.creator ? (
-          <Button href="#" style={styles.button} onClick={handleShow}>
-            Add Attendee
-          </Button>
+          <center>
+            <Button
+              href="#"
+              style={styles.button}
+              onClick={handleShow}
+              className="hoverButton"
+            >
+              Add Attendee
+            </Button>
+          </center>
         ) : (
           ""
         )}
@@ -174,7 +194,12 @@ function AttendeeDetailCard(props) {
                   onChange={handleInputChange}
                   name="email"
                 ></Form.Control>
-                <Button style={styles.modalButton} type="submit">
+
+                <Button
+                  style={styles.modalButton}
+                  type="submit"
+                  className="hoverButton"
+                >
                   Add Attendee
                 </Button>
               </Form.Group>
