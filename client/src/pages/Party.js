@@ -6,6 +6,7 @@ import LocationCard from "../components/LocationCard";
 import API from "../utils/API";
 import { useParams } from "react-router-dom";
 import AttendeeDetailCard from "../components/AttendeeDetailCard";
+import PartyImageCard from "../components/PartyImageCard"
 
 const styles = {
   button: {
@@ -73,28 +74,41 @@ function Party() {
       </Row>
       <Row>
         <Col>
+          <PartyImageCard
+            image={partyData.image}
+            creator={partyData.creator}
+            partyId={partyData._id}
+            getPartyData={getPartyData}
+          ></PartyImageCard>
+        </Col>
+        <Col>
           <ScheduleDetailCard
             schedule={partyData.schedule}
             creator={partyData.creator}
             partyId={partyData._id}
+            getPartyData={getPartyData}
           ></ScheduleDetailCard>
         </Col>
+      </Row>
+      <Row className="mt-3">
         <Col>
           <SupplyDetailCard
             supplies={partyData.supplies}
             creator={partyData.creator}
             partyId={partyData._id}
+            getPartyData={getPartyData}
           ></SupplyDetailCard>
         </Col>
-      </Row>
-      <Row className="mt-3">
         <Col>
           <AttendeeDetailCard
             attendees={partyData.attendees}
             creator={partyData.creator}
             partyId={partyData._id}
+            getPartyData={getPartyData}
           ></AttendeeDetailCard>
         </Col>
+      </Row>
+      <Row>
         <Col>
           <LocationCard
             lat={partyPosition.lat !== undefined ? partyPosition.lat : 0}

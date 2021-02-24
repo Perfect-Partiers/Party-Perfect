@@ -91,6 +91,7 @@ function AttendeeDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const handleDeleteBtn = (event, attendee) => {
@@ -106,6 +107,7 @@ function AttendeeDetailCard(props) {
         },
       ],
     });
+    props.getPartyData();
   };
 
   return (

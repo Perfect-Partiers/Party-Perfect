@@ -21,28 +21,13 @@ const styles = {
 };
 
 const LocationCard = (props) => {
-  // const [viewport, setViewport] = useState({
-  //   latitude: 47.425081,
-  //   longitude: -122.146384,
-  //   zoom: 15,
-  //   width: "300px",
-  //   height: "300px",
-  // });
-
   const [viewport, setViewport] = useState({
     latitude: props.lat,
     longitude: props.lon,
-    zoom: -10,
+    zoom: -1,
     width: "300px",
     height: "300px",
   });
-
-  // const staticMarker = {
-  //   latitude: 47.425081,
-  //   longitude: -122.146384,
-  //   name: "Party Name Here",
-  //   address: "address here",
-  // };
 
   const staticMarker = {
     latitude: props.lat,
@@ -54,13 +39,13 @@ const LocationCard = (props) => {
   const [markerSelect, setMarkerSelect] = useState(null);
 
   useEffect(() => {
-    if (viewport.zoom === -10) {
+    if (viewport.zoom === -1) {
       setTimeout(() => {
         setViewport({
           ...viewport,
           zoom: 15,
         });
-      }, 700);
+      }, 1000);
     } else {
       setViewport({
         ...viewport,

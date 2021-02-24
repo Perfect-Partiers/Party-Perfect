@@ -109,6 +109,7 @@ function ScheduleDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const getFormattedTime = (fourDigitTime) => {
@@ -123,7 +124,7 @@ function ScheduleDetailCard(props) {
   const handleDeleteBtn = (event, activity) => {
     console.log(event.target);
     console.log("hello?");
-    API.removePartyItem(props.partyId, {
+    API.updateParty(props.partyId, {
       schedule: [
         {
           time: activity.time,
@@ -132,6 +133,7 @@ function ScheduleDetailCard(props) {
         },
       ],
     });
+    props.getPartyData();
   };
 
   return (

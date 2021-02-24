@@ -100,6 +100,7 @@ function SupplyDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const handleDeleteBtn = (event, id, supply) => {
@@ -114,6 +115,7 @@ function SupplyDetailCard(props) {
         },
       ],
     });
+    props.getPartyData();
   };
 
   return (
