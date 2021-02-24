@@ -5,15 +5,15 @@ import Card from "react-bootstrap/Card";
 const styles = {
   locationDetail: {
     backgroundColor: "#8dc6bf",
-    width: "500px",
+    width: "540px",
   },
   title: {
     color: "#ffffff",
     fontSize: "25px",
     fontWeight: "bolder",
   },
-  width: "300px",
-  height: "300px",
+  width: "315px",
+  height: "auto",
   markerBtn: {
     background: "none",
     border: "none",
