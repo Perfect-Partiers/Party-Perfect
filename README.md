@@ -2,7 +2,7 @@
 
 ![github license]()
 
-Explore the [Project Page](https://github.com/TommyWillen/Party-Perfect)
+Explore the [Project Page](https://github.com/Perfect-Partiers/Party-Perfect)
 
 View it live on [Heroku](https://party-perfect.herokuapp.com/)
 
@@ -92,6 +92,6 @@ This project is licensed under the permissive open source...
 
 ## Contact
 
-Project Link: [https://github.com/TommyWillen/Party-Perfect](https://github.com/TommyWillen/Party-Perfect)
+Project Link: [https://github.com/Perfect-Partiers/Party-Perfect](https://github.com/Perfect-Partiers/Party-Perfect)
 
 Live Link:[https://github.com/TommyWillen/Party-Perfect](https://github.com/TommyWillen/Party-Perfect)
