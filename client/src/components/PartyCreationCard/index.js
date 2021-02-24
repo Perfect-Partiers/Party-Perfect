@@ -52,7 +52,6 @@ function PartyCreationCard(props) {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log(formObject);
 
     props.makeParty(formObject);
     // setFormObject()

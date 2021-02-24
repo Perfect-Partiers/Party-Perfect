@@ -91,15 +91,11 @@ function ScheduleDetailCard(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(formObject);
     addActivity(formObject);
   };
 
   const addActivity = (activity) => {
-    console.log(activity);
-    console.log(props.partyId);
     activity.time = getFormattedTime(activity.time);
-    console.log(activity.time);
     API.updateParty(props.partyId, {
       schedule: [
         {
@@ -122,8 +118,6 @@ function ScheduleDetailCard(props) {
   };
 
   const handleDeleteBtn = (event, activity) => {
-    console.log(event.target);
-    console.log("hello?");
     API.updateParty(props.partyId, {
       schedule: [
         {
