@@ -75,13 +75,10 @@ function AttendeeDetailCard(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(formObject);
     addAttendee(formObject);
   };
 
   const addAttendee = (attendee) => {
-    console.log(attendee);
-    console.log(props.partyId);
     API.updateParty(props.partyId, {
       attendees: [
         {
@@ -95,9 +92,6 @@ function AttendeeDetailCard(props) {
   };
 
   const handleDeleteBtn = (event, attendee) => {
-    // console.log(id);
-    console.log(event.target);
-    console.log(attendee);
     API.updateParty(props.partyId, {
       attendees: [
         {

@@ -14,7 +14,6 @@ import ForgotPassword from "../src/pages/ForgotPassword";
 
 function App() {
   const { currentUser } = useAuth();
-  console.log(currentUser);
   return (
     <Router>
       <MyNavbar />
@@ -23,6 +22,9 @@ function App() {
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/party/:id" component={Party} />
           <Route exact path="/partycreate" component={PartyCreate} />
+          <Route>
+            <NoMatch />
+          </Route>
         </Switch>
       )}
       {!currentUser && (

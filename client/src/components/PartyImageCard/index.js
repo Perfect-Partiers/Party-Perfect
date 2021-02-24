@@ -36,7 +36,6 @@ const styles = {
 // props needed: partyId / creator / image
 function AttendeeDetailCard(props) {
     const { currentUser } = useAuth();
-console.log(props)
     const uploadImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
@@ -51,19 +50,15 @@ console.log(props)
     
         const file = await res.json()
     
-        console.log(file)
     
         addImage(file);
 
       };
 
     const addImage = (file) => {
-        console.log(file)
-        console.log(props.partyId)
         API.updateParty(props.partyId, {
             image: file.secure_url
         }).then(res => {
-            console.log(res)
         })
         props.getPartyData();
       }

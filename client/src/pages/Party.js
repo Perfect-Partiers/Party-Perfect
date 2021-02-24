@@ -27,7 +27,6 @@ function Party() {
     API.getParty(id)
       .then((res) => {
         setPartyData(res.data);
-        console.log(res.data);
         getPartyPosition();
       })
       .catch((err) => console.log(err));
@@ -49,10 +48,8 @@ function Party() {
   };
 
   const getPartyPosition = () => {
-    console.log("====getPartyPosition====");
     API.getMapBoxData(id)
       .then((res) => {
-        console.log(res.data);
         setPartyPosition({
           lat: parseFloat(res.data.features[0].geometry.coordinates[1]),
           lon: parseFloat(res.data.features[0].geometry.coordinates[0]),
