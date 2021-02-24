@@ -189,7 +189,7 @@ function PartyCreationCard(props) {
                       className="float-left"
                       name="zip"
                       type="text"
-                      placeholder="Enter street address"
+                      placeholder="Enter zip code"
                       onChange={handleInputChange}
                     />
                   </Col>
