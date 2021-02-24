@@ -120,9 +120,9 @@ module.exports = {
         axios
           .get(
             BASEURL +
-              encodeURI(address.street) +
+              encodeURIComponent(address.street) +
               "%20" +
-              encodeURI(address.zip) +
+              encodeURIComponent(address.zip) +
               ".json?access_token=" +
               MAPBOX_TOKEN
           )

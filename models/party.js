@@ -55,6 +55,9 @@ const partySchema = new Schema({
       activity: { type: String },
     },
   ],
+  image: {
+    type: String,
+  },
 });
 
 const Party = mongoose.model("Party", partySchema);

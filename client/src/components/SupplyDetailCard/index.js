@@ -4,8 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
 import { useAuth } from "../contexts/AuthContext";
+import "./style.css";
 
 const styles = {
+  title: {
+    color: "#ffffff",
+    fontSize: "25px",
+    fontWeight: "bolder",
+  },
   SASDetail: {
     backgroundColor: "#8dc6bf",
   },
@@ -53,6 +59,13 @@ const styles = {
     fontWeight: "bold",
     fontSize: "18px",
   },
+  table: {
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+  },
+  tableHead: {
+    color: "#ee6a59",
+  },
 };
 
 function SupplyDetailCard(props) {
@@ -87,6 +100,7 @@ function SupplyDetailCard(props) {
       ],
     });
     handleClose();
+    props.getPartyData();
   };
 
   const handleDeleteBtn = (event, id, supply) => {
@@ -101,17 +115,18 @@ function SupplyDetailCard(props) {
         },
       ],
     });
+    props.getPartyData();
   };
 
   return (
     <Card style={styles.SASDetail}>
       <Card.Body>
-        <Card.Title>Supplies</Card.Title>
-        <Table responsive>
-          <thead>
+        <Card.Title style={styles.title}>Supplies</Card.Title>
+        <Table responsive style={styles.table}>
+          <thead style={styles.tableHead}>
             <tr>
               <th>Supply</th>
-              {currentUser.uid === props.creator ? (<th>Remove</th>) : ""}
+              {currentUser.uid === props.creator ? <th>Remove</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -124,13 +139,22 @@ function SupplyDetailCard(props) {
                 return (
                   <tr key={supplyItem._id}>
                     <td>{supplyItem.supply} </td>
-                    {currentUser.uid === props.creator ? (<td><Button
-                                style={styles.tButton}
-                                value={supplyItem._id}
-                                onClick={(event) => 
-                                handleDeleteBtn(event, supplyItem)}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button></td>) : "" } 
+                    {currentUser.uid === props.creator ? (
+                      <td>
+                        <Button
+                          style={styles.tButton}
+                          value={supplyItem._id}
+                          onClick={(event) =>
+                            handleDeleteBtn(event, supplyItem)
+                          }
+                          className="hoverButton"
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 );
               })
@@ -138,10 +162,19 @@ function SupplyDetailCard(props) {
           </tbody>
         </Table>
         {currentUser.uid === props.creator ? (
-          <Button href="#" style={styles.button} onClick={handleShow}>
-            Add Supply
-          </Button>
-        ) : ""}
+          <center>
+            <Button
+              href="#"
+              style={styles.button}
+              onClick={handleShow}
+              className="hoverButton"
+            >
+              Add Supply
+            </Button>
+          </center>
+        ) : (
+          ""
+        )}
 
         <Modal
           show={show}
@@ -163,7 +196,11 @@ function SupplyDetailCard(props) {
                   style={styles.formControl}
                   onChange={handleInputChange}
                 ></Form.Control>
-                <Button style={styles.modalButton} type="submit">
+                <Button
+                  style={styles.modalButton}
+                  type="submit"
+                  className="hoverButton"
+                >
                   Add Supply
                 </Button>
               </Form.Group>
