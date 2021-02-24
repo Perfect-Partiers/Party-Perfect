@@ -5,14 +5,15 @@ import Card from "react-bootstrap/Card";
 const styles = {
   locationDetail: {
     backgroundColor: "#8dc6bf",
+    width: "540px",
   },
   title: {
     color: "#ffffff",
     fontSize: "25px",
     fontWeight: "bolder",
   },
-  width: "300px",
-  height: "300px",
+  width: "315px",
+  height: "auto",
   markerBtn: {
     background: "none",
     border: "none",
@@ -56,7 +57,7 @@ const LocationCard = (props) => {
   }, [viewport.zoom]);
 
   return (
-    <Card style={styles.locationDetail} className="mb-4">
+    <Card style={styles.locationDetail} className="mb-4 mt-3">
       <Card.Body>
         <Card.Title style={styles.title} className="mb-3">
           Location
