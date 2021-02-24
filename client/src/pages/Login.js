@@ -13,7 +13,7 @@ function Login() {
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        <h1>Please login to get partying!</h1>
+        <h1>Why just party if you can Party Perfect?</h1>
       </Row>
       <Row className="justify-content-md-center">
         <LoginCard />

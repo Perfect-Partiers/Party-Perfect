@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 const styles = {
   locationDetail: {
     backgroundColor: "#8dc6bf",
+    width: "500px",
   },
   title: {
     color: "#ffffff",
@@ -56,7 +57,7 @@ const LocationCard = (props) => {
   }, [viewport.zoom]);
 
   return (
-    <Card style={styles.locationDetail} className="mb-4">
+    <Card style={styles.locationDetail} className="mb-4 mt-3">
       <Card.Body>
         <Card.Title style={styles.title} className="mb-3">
           Location
