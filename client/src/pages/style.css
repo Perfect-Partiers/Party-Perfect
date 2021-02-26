@@ -22,14 +22,3 @@
   background-color: #99658a !important;
   border-color: #99658a !important;
 }
-
-.fc-daygrid-event-harness,
-.fc-daygrid-event,
-.fc-event-main {
-  background-color: #8dc6bf;
-  border-color: #ebf1f0;
-}
-
-.fc-day-today {
-  background-color: #f4f0f0 !important;
-}

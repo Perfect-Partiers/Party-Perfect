@@ -10,11 +10,6 @@ const styles = {
     width: "350px",
     margin: "0",
   },
-  card2: {
-    backgroundColor: "#f4bdb7",
-    width: "350px",
-    margin: "0",
-  },
 
   title: {
     color: "#ffffff",
@@ -24,15 +19,22 @@ const styles = {
 
   footer: {
     borderRadius: "10px",
+    // backgroundColor: "#fffff0",
     backgroundColor: "#ffffff",
   },
 
   partyId: {
     color: "#ee6a59",
   },
+  card2: {
+    backgroundColor: "#f4bdb7",
+    width: "350px",
+    margin: "0",
+  },
 };
 
 const PartyDetailCard = (props) => {
+  const { currentUser } = useAuth();
   // Function for reformatting the date
   const formatDate = (inputDate) => {
     var date = new Date(inputDate);
@@ -50,12 +52,11 @@ const PartyDetailCard = (props) => {
   };
 
   const url = "/party/" + props._id;
-  const { currentUser } = useAuth();
 
   return (
     <Col className="column">
       <Link className="link" to={url}>
-        <Card
+      <Card
           style={currentUser.uid === props.creator ? styles.card : styles.card2}
           className="partyCard mt-3 text-center"
         >
