@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import Party from "./pages/Party";
 import NoMatch from "./pages/NoMatch";
@@ -27,7 +27,7 @@ function App() {
                               component={PartyCreate}
                          />
                          <Route>
-                              <NoMatch />
+                              <Redirect to="/home"/>
                          </Route>
                     </Switch>
                )}
