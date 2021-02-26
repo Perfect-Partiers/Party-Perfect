@@ -57,6 +57,7 @@ This project was built using:
 - [Axios](https://www.npmjs.com/package/axios)
 - [Firebase](https://firebase.google.com/)
 - [Font Awesome](https://fontawesome.com/)
+- [Cloudinary](https://cloudinary.com/)
 
 ## Usage
 
@@ -94,4 +95,4 @@ This project is licensed under the permissive open source...
 
 Project Link: [https://github.com/Perfect-Partiers/Party-Perfect](https://github.com/Perfect-Partiers/Party-Perfect)
 
-Live Link:[https://github.com/TommyWillen/Party-Perfect](https://github.com/TommyWillen/Party-Perfect)
+Live Link: [https://party-perfect.herokuapp.com/](https://party-perfect.herokuapp.com/)
