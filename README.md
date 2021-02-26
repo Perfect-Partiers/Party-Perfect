@@ -19,7 +19,7 @@ View it live on [Heroku](https://party-perfect.herokuapp.com/)
 
 ## About The Project
 
-The Pandemic will (eventually) come to an end, and the birthday bashes, backyard BBQs, and breathtaking banquets will resume. When this time comes, party planners will need an easy way to keep track of upcoming parties and the details that come along with them. Party Perfect was created to do just that. With this application, the user can add upcoming parties to their home page, and keep track of the party schedule, invited attendees, needed supplies, and can even view past events.
+The Pandemic will (eventually) be coming to an end and the birthday bashes, backyard BBQs,
 
 <hr>
 
@@ -29,15 +29,15 @@ The Pandemic will (eventually) come to an end, and the birthday bashes, backyard
 
 **Signup Page**
 
-![Signup Page Snapshot](./client/public/assets/images/signup.png)
+![Signup Page Snapshot](./app/public/assets/images/signup.png)
 
-**Member's Page**
+**Members Page**
 
-![Members Page Snapshot](./client/public/assets/images/members.png)
+![Members Page Snapshot](./app/public/assets/images/members.png)
 
 **Party Detail Page**
 
-![Party Detail Snapshot](./client/public/assets/images/partydetail.png)
+![Party Detail Snapshot](./app/public/assets/images/partydetail.png)
 
 <hr>
 
@@ -57,29 +57,24 @@ This project was built using:
 - [Axios](https://www.npmjs.com/package/axios)
 - [Firebase](https://firebase.google.com/)
 - [Font Awesome](https://fontawesome.com/)
-- [Cloudinary](https://cloudinary.com/)
 
 ## Usage
 
-To use this application, the user must login, or if not already a member, create an account. Once logged in, the user will be directed to their own personal member's page, where previously created parties will appear. Users will also be able to search through their calendar to view upcoming or past parties.
+To use this application, the user must login, or if not already a member, create an account. Once logged in, the user will be directed to their own personal member's page, where recipient/gift lists will appear if previously created.
 
-If the user creates a new party, he/she will be click into that party's detail page. From here the user is able to add attendees, supplies, schedule and a party image. Additionally, the party address can be viewed on the party detail page location card.
+This application can be used throughout the year to keep track of gift recipients and associated gift lists. Recipients and gift lists can be removed as needed.
 
 ### Demo
 
 Watch the short video below to see how the application works.
 
-![Party-Perfect-Demo](./client/public/assets/images/partyperfect.gif)
+![Party-Perfect-Demo](./client/public/assets/demo.gif)
 
 ## Future Development
 
 Below is a list of additional features and content the development team would like to add to this project moving forward:
 
-- Validations for user information and password on the "Create an Account" page.
-  Delete buttons on the party cards and/or the party detail page.
-- An way to edit the date and time of a created party.
-- A copy button on the Party ID on both the home and party page for easy sharing.
-- Functionality to invite additional attendees via email integration.
+-
 
 ## Contributing
 
@@ -99,4 +94,4 @@ This project is licensed under the permissive open source...
 
 Project Link: [https://github.com/Perfect-Partiers/Party-Perfect](https://github.com/Perfect-Partiers/Party-Perfect)
 
-Live Link: [https://party-perfect.herokuapp.com/](https://party-perfect.herokuapp.com/)
+Live Link:[https://github.com/TommyWillen/Party-Perfect](https://github.com/TommyWillen/Party-Perfect)

@@ -2,16 +2,10 @@ import React from "react";
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
-    width: "350px",
-    margin: "0",
-  },
-  card2: {
-    backgroundColor: "#f4bdb7",
     width: "350px",
     margin: "0",
   },
@@ -24,6 +18,7 @@ const styles = {
 
   footer: {
     borderRadius: "10px",
+    // backgroundColor: "#fffff0",
     backgroundColor: "#ffffff",
   },
 
@@ -50,15 +45,11 @@ const PartyDetailCard = (props) => {
   };
 
   const url = "/party/" + props._id;
-  const { currentUser } = useAuth();
 
   return (
     <Col className="column">
       <Link className="link" to={url}>
-        <Card
-          style={currentUser.uid === props.creator ? styles.card : styles.card2}
-          className="partyCard mt-3 text-center"
-        >
+        <Card className="partyCard mt-3 text-center" style={styles.card}>
           <Card.Body>
             <Card.Title style={styles.title} className="mb-2">
               {props.name}
