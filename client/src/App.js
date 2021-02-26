@@ -48,7 +48,7 @@ function App() {
                               component={ForgotPassword}
                          />
                          <Route>
-                              <NoMatch />
+                         <Redirect to="/login"/>
                          </Route>
                     </Switch>
                )}

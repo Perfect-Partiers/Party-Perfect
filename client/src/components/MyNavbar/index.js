@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import Navbar from "react-bootstrap/Navbar";
 import "./style.css";
