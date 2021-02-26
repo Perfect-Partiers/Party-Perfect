@@ -69,13 +69,17 @@ If the user creates a new party, he/she will be click into that party's detail p
 
 Watch the short video below to see how the application works.
 
-![Party-Perfect-Demo](./client/public/assets/demo.gif)
+![Party-Perfect-Demo](./client/public/assets/images/partyperfect.gif)
 
 ## Future Development
 
 Below is a list of additional features and content the development team would like to add to this project moving forward:
 
--
+- Validations for user information and password on the "Create an Account" page.
+  Delete buttons on the party cards and/or the party detail page.
+- An way to edit the date and time of a created party.
+- A copy button on the Party ID on both the home and party page for easy sharing.
+- Functionality to invite additional attendees via email integration.
 
 ## Contributing
 
