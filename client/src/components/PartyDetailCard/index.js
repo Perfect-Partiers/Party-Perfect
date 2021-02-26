@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   card: {
@@ -33,6 +34,7 @@ const styles = {
 };
 
 const PartyDetailCard = (props) => {
+  const { currentUser } = useAuth();
   // Function for reformatting the date
   const formatDate = (inputDate) => {
     var date = new Date(inputDate);
