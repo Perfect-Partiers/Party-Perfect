@@ -8,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 const styles = {
   card: {
     backgroundColor: "#8dc6bf",
-    width: "900px",
+    width: "50rem",
   },
   labelMain: {
     color: "#ffffff",
@@ -58,7 +58,7 @@ function LoginCard() {
 
   return (
     <div>
-      <Col className="mt-4 justify-content-center">
+      <Col className="mt-4">
         <Card style={styles.card}>
           <Card.Body>
             <Form onSubmit={handleSubmit}>

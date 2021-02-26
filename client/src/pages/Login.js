@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import LoginCard from "../components/LoginCard";
 
 const styles = {
@@ -10,22 +10,28 @@ const styles = {
 };
 
 function Login() {
+
+  
   return (
-    <Container>
+    <Container fluid="md">
       <Row className="justify-content-md-center mt-5">
-        <h1>Please login to get partying!</h1>
+        <Col className="text-center">
+          <h1>Why just party if you can Party Perfect?</h1>
+        </Col>
       </Row>
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-center">
         <LoginCard />
       </Row>
       <Row className="justify-content-md-center mt-4">
-        <h5>
-          Haven't created an account yet? Create one{" "}
-          <Link style={styles.link} to="/create-account">
-            here
-          </Link>
-          !
-        </h5>
+        <Col className="text-center" fluid>
+          <h5>
+            Haven't created an account yet? Create one{" "}
+            <Link style={styles.link} to="/create-account">
+              here
+            </Link>
+            !
+          </h5>
+        </Col>
       </Row>
     </Container>
   );

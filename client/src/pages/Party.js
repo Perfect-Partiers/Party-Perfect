@@ -6,7 +6,7 @@ import LocationCard from "../components/LocationCard";
 import API from "../utils/API";
 import { useParams } from "react-router-dom";
 import AttendeeDetailCard from "../components/AttendeeDetailCard";
-import PartyImageCard from "../components/PartyImageCard"
+import PartyImageCard from "../components/PartyImageCard";
 
 const styles = {
   button: {
@@ -27,7 +27,6 @@ function Party() {
     API.getParty(id)
       .then((res) => {
         setPartyData(res.data);
-        console.log(res.data);
         getPartyPosition();
       })
       .catch((err) => console.log(err));
@@ -49,10 +48,8 @@ function Party() {
   };
 
   const getPartyPosition = () => {
-    console.log("====getPartyPosition====");
     API.getMapBoxData(id)
       .then((res) => {
-        console.log(res.data);
         setPartyPosition({
           lat: parseFloat(res.data.features[0].geometry.coordinates[1]),
           lon: parseFloat(res.data.features[0].geometry.coordinates[0]),
@@ -73,15 +70,7 @@ function Party() {
         <h2>Party Code: {partyData._id}</h2>
       </Row>
       <Row>
-        <Col>
-          <PartyImageCard
-            image={partyData.image}
-            creator={partyData.creator}
-            partyId={partyData._id}
-            getPartyData={getPartyData}
-          ></PartyImageCard>
-        </Col>
-        <Col>
+        <Col className="my-2">
           <ScheduleDetailCard
             schedule={partyData.schedule}
             creator={partyData.creator}
@@ -90,8 +79,8 @@ function Party() {
           ></ScheduleDetailCard>
         </Col>
       </Row>
-      <Row className="mt-3">
-        <Col>
+      <Row>
+        <Col className="my-2">
           <SupplyDetailCard
             supplies={partyData.supplies}
             creator={partyData.creator}
@@ -99,7 +88,7 @@ function Party() {
             getPartyData={getPartyData}
           ></SupplyDetailCard>
         </Col>
-        <Col>
+        <Col className="my-2">
           <AttendeeDetailCard
             attendees={partyData.attendees}
             creator={partyData.creator}
@@ -109,6 +98,14 @@ function Party() {
         </Col>
       </Row>
       <Row>
+        <Col className="mt-2">
+          <PartyImageCard
+            image={partyData.image}
+            creator={partyData.creator}
+            partyId={partyData._id}
+            getPartyData={getPartyData}
+          ></PartyImageCard>
+        </Col>
         <Col>
           <LocationCard
             lat={partyPosition.lat !== undefined ? partyPosition.lat : 0}

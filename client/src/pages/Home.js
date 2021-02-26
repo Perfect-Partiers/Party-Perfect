@@ -91,21 +91,16 @@ function Home() {
         console.log(err);
       });
   };
-  console.log(parties);
   // this function uses the currentUser info from firebase (user parameter) and checks if the user is in mongodb. if not, add user to mongodb, then load all of the parties associated with that user
   const checkUser = (user) => {
     API.checkUser(user.uid)
       .then((res) => {
         if (res.data.length === 0) {
-          console.log("user not in mongodb");
           API.createUser({
             email: user.email,
             uid: user.uid,
-          }).then((results) => {
-            console.log(results);
-          });
+          }).then((results) => {});
         } else {
-          console.log("user already in mongodb");
         }
         loadParties();
       })
@@ -118,11 +113,9 @@ function Home() {
     e.preventDefault();
 
     let partyId = partyRef.current.value;
-    console.log(partyId);
 
     API.saveParty(partyId, currentUser.uid)
       .then((res) => {
-        console.log("Added party to your database!");
         addAttendee(partyId);
 
         loadParties();
@@ -138,9 +131,7 @@ function Home() {
       attendees: [{ name: currentUser.displayName, email: currentUser.email }],
     };
     API.updateParty(partyId, updates)
-      .then((res) => {
-        console.log("Added current user as attendee");
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -156,8 +147,14 @@ function Home() {
     })
   );
 
+  pastParties.map((party) =>
+    calendarParties.push({
+      title: party.name,
+      date: party.date,
+      id: party._id,
+    })
+  );
   const handleEventClick = (event) => {
-    console.log(event);
     window.location.href = "/party/" + event;
   };
 

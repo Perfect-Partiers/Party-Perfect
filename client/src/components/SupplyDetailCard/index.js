@@ -69,7 +69,6 @@ const styles = {
 };
 
 function SupplyDetailCard(props) {
-  // console.log(props.supplies);
   const { currentUser } = useAuth();
   const [show, setShow] = useState(false);
 
@@ -85,13 +84,10 @@ function SupplyDetailCard(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(formObject);
     addSupply(formObject);
   };
 
   const addSupply = (supply) => {
-    console.log(supply);
-    console.log(props.partyId);
     API.updateParty(props.partyId, {
       supplies: [
         {
@@ -104,9 +100,6 @@ function SupplyDetailCard(props) {
   };
 
   const handleDeleteBtn = (event, id, supply) => {
-    console.log(id);
-    console.log(event.target);
-    console.log(supply);
     API.updateParty(props.partyId, {
       supplies: [
         {
