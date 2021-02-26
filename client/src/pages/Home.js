@@ -99,8 +99,7 @@ function Home() {
           API.createUser({
             email: user.email,
             uid: user.uid,
-          }).then((results) => {
-          });
+          }).then((results) => {});
         } else {
         }
         loadParties();
@@ -132,8 +131,7 @@ function Home() {
       attendees: [{ name: currentUser.displayName, email: currentUser.email }],
     };
     API.updateParty(partyId, updates)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -149,6 +147,13 @@ function Home() {
     })
   );
 
+  pastParties.map((party) =>
+    calendarParties.push({
+      title: party.name,
+      date: party.date,
+      id: party._id,
+    })
+  );
   const handleEventClick = (event) => {
     window.location.href = "/party/" + event;
   };
