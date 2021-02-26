@@ -30,7 +30,12 @@ const styles = {
     width: "255px",
     height: "auto",
   },
-  fileBtn: {},
+  fileBtn: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+  },
   title: {
     color: "#ffffff",
     fontSize: "25px",
@@ -82,7 +87,7 @@ function AttendeeDetailCard(props) {
                 name="file"
                 placeholder="Upload an image"
                 onChange={uploadImage}
-                style={styles.fileBtn}
+                // style={styles.fileBtn}
               />
             </div>
           ) : (
