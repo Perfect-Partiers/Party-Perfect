@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import Card from "react-bootstrap/Card";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const styles = {
   locationDetail: {
