@@ -10,44 +10,44 @@ import "./style.css";
 import firebase from "../firebase.js";
 
 const styles = {
-     button: {
-          backgroundColor: "#99658A",
-          borderColor: "#99658A",
-          fontWeight: "bold",
-          fontSize: "18px",
-          width: "200px",
-          height: "45px",
-     },
+  button: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    width: "200px",
+    height: "45px",
+  },
 
-     heading: {
-          marginTop: "40px",
-     },
-     modal: {
-          backgroundColor: "#FFFFF0",
-     },
+  heading: {
+    marginTop: "40px",
+  },
+  modal: {
+    backgroundColor: "#FFFFF0",
+  },
 
-     modalTitle: {
-          color: "#ffffff",
-          fontWeight: "bold",
-     },
+  modalTitle: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  },
 
-     modalHead: {
-          backgroundColor: "#ee6a59",
-     },
+  modalHead: {
+    backgroundColor: "#ee6a59",
+  },
 
-     formControl: {
-          width: "300px",
-          margin: "auto",
-          marginTop: "20px",
-     },
+  formControl: {
+    width: "300px",
+    margin: "auto",
+    marginTop: "20px",
+  },
 
-     modalButton: {
-          backgroundColor: "#99658A",
-          borderColor: "#99658A",
-          fontWeight: "bold",
-          fontSize: "18px",
-          marginTop: "20px",
-     },
+  modalButton: {
+    backgroundColor: "#99658A",
+    borderColor: "#99658A",
+    fontWeight: "bold",
+    fontSize: "18px",
+    marginTop: "20px",
+  },
 };
 
 function Home() {
@@ -99,8 +99,7 @@ function Home() {
           API.createUser({
             email: user.email,
             uid: user.uid,
-          }).then((results) => {
-          });
+          }).then((results) => {});
         } else {
         }
         loadParties();
@@ -132,8 +131,7 @@ function Home() {
       attendees: [{ name: currentUser.displayName, email: currentUser.email }],
     };
     API.updateParty(partyId, updates)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -224,20 +222,18 @@ function Home() {
       <Row className="mb-5">
         <PastAccordion parties={pastParties}></PastAccordion>
       </Row> */}
-               <Row>
-                    <div className="my-5 mx-auto text-align-center">
-                         <FullCalendar
-                              plugins={[dayGridPlugin]}
-                              initialView="dayGridMonth"
-                              events={calendarParties}
-                              eventClick={(event) =>
-                                   handleEventClick(event.event._def.publicId)
-                              }
-                         />
-                    </div>
-               </Row>
-          </Container>
-     );
+      <Row>
+        <div className="my-5 mx-auto text-align-center">
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            events={calendarParties}
+            eventClick={(event) => handleEventClick(event.event._def.publicId)}
+          />
+        </div>
+      </Row>
+    </Container>
+  );
 }
 
 export default Home;
