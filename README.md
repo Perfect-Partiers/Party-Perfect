@@ -16,7 +16,7 @@ View it live on [Heroku](https://party-perfect.herokuapp.com/)
 
 ## About The Project
 
-The Pandemic will (eventually) be coming to an end and the birthday bashes, backyard BBQs,
+The Pandemic will (eventually) come to an end, and the birthday bashes, backyard BBQs, and breathtaking banquets will resume. When this time comes, party planners will need an easy way to keep track of upcoming parties and the details that come along with them. Party Perfect was created to do just that. With this application, the user can add upcoming parties to their home page, and keep track of the party schedule, invited attendees, needed supplies, and can even view past events.
 
 <hr>
 
@@ -26,15 +26,15 @@ The Pandemic will (eventually) be coming to an end and the birthday bashes, back
 
 **Signup Page**
 
-![Signup Page Snapshot](./app/public/assets/images/signup.png)
+![Signup Page Snapshot](./client/public/assets/images/signup.png)
 
 **Members Page**
 
-![Members Page Snapshot](./app/public/assets/images/members.png)
+![Members Page Snapshot](./client/public/assets/images/members.png)
 
 **Party Detail Page**
 
-![Party Detail Snapshot](./app/public/assets/images/partydetail.png)
+![Party Detail Snapshot](./client/public/assets/images/partydetail.png)
 
 <hr>
 
@@ -54,6 +54,7 @@ This project was built using:
 - [Axios](https://www.npmjs.com/package/axios)
 - [Firebase](https://firebase.google.com/)
 - [Font Awesome](https://fontawesome.com/)
+- [Cloudinary](https://cloudinary.com/)
 
 ## Usage
 
@@ -65,13 +66,18 @@ This application can be used throughout the year to keep track of gift recipient
 
 Watch the short video below to see how the application works.
 
-![Party-Perfect-Demo](./client/public/assets/demo.gif)
+![Party-Perfect-Demo](./client/public/assets/images/partyperfect.gif)
 
 ## Future Development
 
 Below is a list of additional features and content the development team would like to add to this project moving forward:
 
--
+- Validations for user information and password on the "Create an Account" page.
+- Delete buttons on the party cards and/or the party detail page.
+- A way to edit the date and time of a created party.
+- A copy button on the Party ID on both the home and party page for easy sharing.
+- Functionality to invite additional attendees via email integration.
+- Ability to add multiple images to a party page, or create an album.
 
 ## Contributing
 
@@ -87,4 +93,4 @@ Contributions are what make the open source community such an amazing place to l
 
 Project Link: [https://github.com/Perfect-Partiers/Party-Perfect](https://github.com/Perfect-Partiers/Party-Perfect)
 
-Live Link:[https://github.com/TommyWillen/Party-Perfect](https://github.com/TommyWillen/Party-Perfect)
+Live Link:[https://party-perfect.herokuapp.com/](https://party-perfect.herokuapp.com/t)
