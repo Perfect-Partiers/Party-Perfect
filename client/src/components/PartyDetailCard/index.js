@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { useAuth } from "../contexts/AuthContext";
 
 const styles = {
   card: {
@@ -25,9 +26,15 @@ const styles = {
   partyId: {
     color: "#ee6a59",
   },
+  card2: {
+    backgroundColor: "#f4bdb7",
+    width: "350px",
+    margin: "0",
+  },
 };
 
 const PartyDetailCard = (props) => {
+  const { currentUser } = useAuth();
   // Function for reformatting the date
   const formatDate = (inputDate) => {
     var date = new Date(inputDate);
@@ -49,7 +56,10 @@ const PartyDetailCard = (props) => {
   return (
     <Col className="column">
       <Link className="link" to={url}>
-        <Card className="partyCard mt-3 text-center" style={styles.card}>
+      <Card
+          style={currentUser.uid === props.creator ? styles.card : styles.card2}
+          className="partyCard mt-3 text-center"
+        >
           <Card.Body>
             <Card.Title style={styles.title} className="mb-2">
               {props.name}
