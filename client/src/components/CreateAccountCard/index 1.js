@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { auth, generateUserDocument } from "./../../firebase";
+import { auth, generateUserDocument } from "../../firebase";
 import API from "../../utils/API";
 import "./style.css";
 
@@ -41,79 +41,34 @@ function CreateAccountCard() {
      const [error, setError] = useState("");
      const [loading, setLoading] = useState("false");
      const history = useHistory();
-     const [firstName, setFirstName] = useState("");
-     const [lastName, setLastName] = useState("");
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
-     const [firstNameError, setFirstNameError] = useState("");
-     const [lastNameError, setLastNameError] = useState("");
-     const [emailError, setEmailError] = useState("");
-     const [passwordError, setPasswordError] = useState("");
      const [displayName, setDisplayName] = useState("");
-
-     const validate = () => {
-          if (!firstNameRef.current.value) {
-               setFirstNameError("First name cannot be null");
-          } else {
-               setFirstNameError("");
-          }
-          if (!lastNameRef.current.value) {
-               setLastNameError("Last name cannot be null");
-          } else {
-               setLastNameError("");
-          }
-          if (!emailRef.current.value) {
-               setEmailError("Invalid email");
-          } else {
-               setEmailError("");
-          }
-          if (!passwordRef.current.value.length < 6) {
-               setPasswordError(
-                    "password length shoul be at least 6 characters"
-               );
-          } else {
-               setPasswordError("");
-          }
-
-          if (firstName || lastName || password) {
-               this.setState({ firstNameError, lastNameError, passwordError });
-               return false;
-          }
-
-          return true;
-     };
 
      async function handleSubmit(e) {
           e.preventDefault();
 
-          const isValid = validate();
-
-          if (isValid) {
-               const displayName = firstNameRef.current.value;
-               if (
-                    passwordRef.current.value !==
-                    passwordConfirmRef.current.value
-               ) {
-                    return setError("password do not match");
-               }
-
-               try {
-                    setError("");
-                    setLoading(true);
-
-                    await signup(
-                         emailRef.current.value,
-                         passwordRef.current.value,
-                         displayName
-                    );
-
-                    history.push("/");
-               } catch (error) {
-                    console.log(error);
-                    setError("Failed to create an account");
-               }
-               setLoading(false);
+          const displayName = firstNameRef.current.value;
+          if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+               return setError("password do not match");
           }
+
+          try {
+               setError("");
+               setLoading(true);
+
+               await signup(
+                    emailRef.current.value,
+                    passwordRef.current.value,
+                    displayName
+               );
+
+               history.push("/");
+          } catch (error) {
+               console.log(error);
+               setError("Failed to create an account");
+          }
+          setLoading(false);
      }
 
      return (
@@ -123,8 +78,7 @@ function CreateAccountCard() {
                          <Card.Body>
                               {error && <Alert variant="danger">{error}</Alert>}
                               <center>
-                                   {/* <Form onSubmit={handleSubmit}> */}
-                                   <Form>
+                                   <Form onSubmit={handleSubmit}>
                                         <center>
                                              <Form.Label
                                                   className="mb-3 font-weight-bold align-text-center"
@@ -152,23 +106,13 @@ function CreateAccountCard() {
                                                        // id="displayName"
                                                        type="text"
                                                        name="firstName"
-                                                       placeholder="First Name"
+                                                       // value={displayName}
+                                                       placeholder="Jane"
                                                        style={
                                                             styles.formControl
                                                        }
                                                        ref={firstNameRef}
-                                                       required
                                                   />
-                                                  {firstNameError ? (
-                                                       <div
-                                                            style={{
-                                                                 fontSize: 20,
-                                                                 color: "red",
-                                                            }}
-                                                       >
-                                                            {firstNameError}
-                                                       </div>
-                                                  ) : null}
                                              </Col>
                                         </Form.Group>
 
@@ -189,23 +133,12 @@ function CreateAccountCard() {
                                                   <Form.Control
                                                        type="text"
                                                        name="lastName"
-                                                       placeholder="Last Name"
+                                                       placeholder="Doe"
                                                        style={
                                                             styles.formControl
                                                        }
                                                        ref={lastNameRef}
-                                                       required
                                                   />
-                                                  {lastNameError ? (
-                                                       <div
-                                                            style={{
-                                                                 fontSize: 20,
-                                                                 color: "red",
-                                                            }}
-                                                       >
-                                                            {lastNameError}
-                                                       </div>
-                                                  ) : null}
                                              </Col>
                                         </Form.Group>
 
@@ -224,6 +157,7 @@ function CreateAccountCard() {
                                              </Form.Label>
                                              <Col sm="9">
                                                   <Form.Control
+                                                       // id="email"
                                                        type="email"
                                                        name="email"
                                                        placeholder="example@email.com"
@@ -233,16 +167,6 @@ function CreateAccountCard() {
                                                        ref={emailRef}
                                                        required
                                                   />
-                                                  {emailError ? (
-                                                       <div
-                                                            style={{
-                                                                 fontSize: 20,
-                                                                 color: "red",
-                                                            }}
-                                                       >
-                                                            {emailError}
-                                                       </div>
-                                                  ) : null}
                                              </Col>
                                         </Form.Group>
 
@@ -270,16 +194,6 @@ function CreateAccountCard() {
                                                        ref={passwordRef}
                                                        required
                                                   />
-                                                  {passwordError ? (
-                                                       <div
-                                                            style={{
-                                                                 fontSize: 20,
-                                                                 color: "red",
-                                                            }}
-                                                       >
-                                                            {passwordError}
-                                                       </div>
-                                                  ) : null}
                                              </Col>
                                         </Form.Group>
 
@@ -312,7 +226,6 @@ function CreateAccountCard() {
 
                                         <center className="my-3">
                                              <Button
-                                                  onClick={handleSubmit}
                                                   style={styles.button}
                                                   className="font-weight-bold hoverButton"
                                                   variant="primary"
