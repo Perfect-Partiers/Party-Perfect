@@ -19,7 +19,6 @@ export default app;
 export const generateUserDocument = async (user, moreData) => {
      // Check to see if there is user data.
      if (!user) return;
-     console.log("user" + user);
      const userRef = firestore.doc(`users/${user.uid}`);
      const getCurrentContent = await userRef.get();
      if (!getCurrentContent.exists) {
