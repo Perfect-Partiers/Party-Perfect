@@ -55,6 +55,8 @@ This project was built using:
 - [Firebase](https://firebase.google.com/)
 - [Font Awesome](https://fontawesome.com/)
 - [Cloudinary](https://cloudinary.com/)
+- [Mapbox](https://www.mapbox.com/)
+- [Mongoose](https://mongoosejs.com/)
 
 ## Usage
 
