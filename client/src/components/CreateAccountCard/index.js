@@ -69,7 +69,7 @@ function CreateAccountCard() {
           }
           if (!passwordRef.current.value.length < 6) {
                setPasswordError(
-                    "password length shoul be at least 6 characters"
+                    "password length should be at least 6 characters"
                );
           } else {
                setPasswordError("");
